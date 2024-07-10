@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
@@ -13,7 +14,7 @@ import "tippy.js/dist/tippy.css";
 import styles from "~/layouts/components/Header/Header.module.scss";
 import Search from "~/layouts/components/Search";
 import Button from "~/components/Button";
-import { useEffect, useState } from "react";
+import { useContexts } from "~/hooks/useContext";
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,7 @@ const MenuAuth = [
 
 function Header() {
     const [token, setToken] = useState("");
+    const [isHidden, handleHiddenLogin] = useContexts();
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -70,6 +72,10 @@ function Header() {
             ))}
         </div>
     );
+
+    const handleOnclick = () => {
+        handleHiddenLogin(!isHidden);
+    };
     return (
         <div className={cx("wrapper")}>
             <Link to="/" className={cx("wrapper-logo")}>
@@ -109,7 +115,9 @@ function Header() {
                     </Tippy>
                 </div>
             ) : (
-                <h1>Đăng nhập</h1>
+                <Button border primary onClick={handleOnclick}>
+                    Đăng nhập
+                </Button>
             )}
         </div>
     );

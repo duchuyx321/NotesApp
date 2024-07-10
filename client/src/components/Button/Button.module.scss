@@ -33,6 +33,13 @@
     border: 1px solid var(--black-color);
 }
 
+.primary {
+    background-color: #ff8f26;
+    &:hover {
+        background-color: #ff5117;
+    }
+}
+
 .createBtn {
     color: var(--black-color);
     background-color: rgb(247, 235, 12);

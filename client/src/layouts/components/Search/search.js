@@ -23,7 +23,7 @@ function Search() {
         }
         const fetchAPI = async () => {
             const result = await searchService.search(debouncedValue);
-            setSearchResult(result);
+            setSearchResult(Array.isArray(result) ? result : []);
             console.log(result);
         };
         fetchAPI();

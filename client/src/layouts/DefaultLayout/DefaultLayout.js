@@ -2,10 +2,14 @@ import classNames from "classnames/bind";
 
 import styles from "~/layouts/DefaultLayout/DefaultLayout.module.scss";
 import Header from "~/layouts/components/Header";
+import { useContexts } from "~/hooks/useContext";
+import Auth from "~/components/Auth";
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
+    const [isHidden] = useContexts();
+    console.log(isHidden);
     return (
         <div className={cx("wrapper")}>
             <Header />
@@ -14,6 +18,7 @@ function DefaultLayout({ children }) {
                     <div className={cx("inner")}>{children}</div>
                 </div>
             </div>
+            {isHidden ? <Auth /> : null}
         </div>
     );
 }
