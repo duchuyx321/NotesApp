@@ -1,0 +1,47 @@
+<form
+    method='POST'
+    action='/note/delete?_method=DELETE'
+    class='wrapper'
+    style='background-image: url({{image}});'
+>
+    {{#if id}}
+        <div class='d-md-flex justify-content-md-end p-3'>
+            <button type='submit' class='btn btn-danger me-5'>Xóa</button>
+            <a
+                href='/note/formCreate'
+                type='button'
+                class='btn btn-warning'
+            >Thêm note</a>
+
+        </div>
+        {{#if notes}}
+            <div class='container'>
+                <div class='row'>
+                    {{#each notes}}
+                        <div class='col-md-4' id='container-note'>
+                            <div class='card mb-4 position-relative'>
+                                <div>
+                                    <input
+                                        class='form-check-input ms-1'
+                                        type='checkbox'
+                                        id='checkboxNoLabel'
+                                        name='ListId []'
+                                        value={{this._id}}
+                                    />
+                                </div>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>{{this.title}}</h5>
+                                    <p class='card-text'>{{this.content}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+</form>
+
+<script>
+
+</script>

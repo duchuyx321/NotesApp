@@ -1,0 +1,36 @@
+<div class='wrapper-note'>
+    <form method='POST' action='/note/create' class='wrapper-note-content'>
+        <div class='m-3'>
+            <label for='exampleFormControlInput1' class='form-label'>Tiêu đề ghi
+                chú</label>
+            <input
+                type='text'
+                class='form-control'
+                id='textFormControlInput1'
+                name='title'
+                placeholder='nhập tiêu đề ghi chú'
+            />
+        </div>
+        <div class='m-3 m'>
+            <label for='exampleFormControlTextarea1' class='form-label'>Nội dung
+                ghi chú</label>
+            <textarea
+                class='form-control'
+                id='exampleFormControlTextarea1 textarea'
+                name='content'
+                rows='10'
+            ></textarea>
+        </div>
+        <input
+            type='hidden'
+            style='display: none;'
+            name='userId'
+            value={{id}}
+        ></input>
+        <div class='d-flex justify-content-end p-3'>
+            <button type='submit' class='btn btn-outline-success'>
+                Save
+            </button>
+        </div>
+    </form>
+</div>

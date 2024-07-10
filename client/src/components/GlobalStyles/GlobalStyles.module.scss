@@ -1,0 +1,35 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+:root {
+    --white-color: #ffffff;
+    --black-color: rgb(24, 25, 26);
+    --text-color: #161823;
+    --header-height-wrapper: 80px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+a,
+input,
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: "Oswald", sans-serif;
+    text-rendering: optimizeLegibility;
+}

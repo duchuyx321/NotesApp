@@ -1,0 +1,77 @@
+<form method='POST' action='/auth/login' class='bg-warning p-5'>
+  <div class='row m-3'>
+        <label for='inputEmail2' class='col-sm-2 col-form-label'>Username</label>
+        <div class='col-sm-5'>
+            <input
+                type='text'
+                class='form-control'
+                id='inputEmail2'
+                name='username'
+                required
+            />
+        </div>
+    </div>
+    <div class='row m-3'>
+        <label for='inputEmail3' class='col-sm-2 col-form-label'>Email</label>
+        <div class='col-sm-5'>
+            <input
+                type='email'
+                class='form-control'
+                id='inputEmail3'
+                name='email'
+            />
+        </div>
+    </div>
+    <div class='row m-3'>
+        <label
+            for='inputPassword3'
+            class='col-sm-2 col-form-label'
+        >Password</label>
+        <div class='col-sm-5'>
+            <input
+                type='password'
+                class='form-control'
+                id='inputPassword3'
+                name='password'
+            />
+        </div>
+    </div>
+    <div class='row m-3'>
+        <label for='inputPassword4' class='col-sm-2 col-form-label' >nhập lại
+            password</label>
+        <div class='col-sm-5'>
+            <input type='password' class='form-control' id='inputPassword4'/>
+        </div>
+    </div>
+    <div class='d-flex justify-content-end m-3'>
+        <button type='submit' class='btn btn-primary' id="submit" disabled>Sign in</button>
+    </div>
+    <div class='d-flex justify-content-end m-3'>
+        <p>Bạn chưa có tài khoản ? </p>
+        <a href='/auth/fromRegister' class='link-success'>Register</a>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputEmail = document.getElementById("inputEmail3"); 
+        const inputPassword = document.getElementById("inputPassword3");
+        const inputRepeatPassword = document.getElementById("inputPassword4");
+        const submit = document.getElementById("submit");
+
+        const checkSubmit = () => {
+            const password = inputPassword.value;
+            const email = inputEmail.validity.valid;
+            const repeatPassword = inputRepeatPassword.value;
+    
+            if(email && password && repeatPassword && password === repeatPassword) {
+                submit.disabled = false;
+            }else{
+                submit.disabled = true;
+            }
+        };
+        inputEmail.addEventListener("input",checkSubmit);
+        inputPassword.addEventListener("input",checkSubmit);
+        inputRepeatPassword.addEventListener("input",checkSubmit);
+    });
+</script>
