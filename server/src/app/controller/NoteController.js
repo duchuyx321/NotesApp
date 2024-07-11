@@ -72,6 +72,35 @@ class NoteController {
             res.json({ message: e.message, next });
         }
     }
+
+    // [PUT] ---/note/update/:_id
+    async update(req, res, next) {
+        try {
+            await Notes.updateOne({ _id: req.params.id }, req.body);
+            res.status(200).json({ message: 'Update Success' });
+        } catch (e) {
+            res.status(404).json({ message: e.message, next });
+        }
+    }
+    //[DELETE] --/note/delete/:id
+    async delete(req, res, next) {
+        try {
+            await Notes.delete({ _id: req.params.id });
+            res.status(200).json({ message: 'Delete success' });
+        } catch (e) {
+            res.status(404).json({ message: e.message, next });
+        }
+    }
+
+    //[DELETE] --/note/destroy/:id
+    async destroy(req, res, next) {
+        try {
+            await Notes.deleteOne({ _id: req.params.id });
+            res.status(200).json({ message: 'destroy Success' });
+        } catch (e) {
+            res.status(404).json({ message: e.message, next });
+        }
+    }
 }
 
 module.exports = new NoteController();
