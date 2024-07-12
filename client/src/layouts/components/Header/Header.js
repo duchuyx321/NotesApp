@@ -38,12 +38,12 @@ const MenuAuth = [
 ];
 
 function Header() {
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(false);
     const [isHidden, handleHiddenLogin] = useContexts();
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
-            setToken(localStorage.getItem("token"));
+        if (localStorage.getItem("authorization")) {
+            setToken(true);
         }
     }, [token]);
 
@@ -74,7 +74,7 @@ function Header() {
     );
 
     const handleOnclick = () => {
-        handleHiddenLogin(!isHidden);
+        handleHiddenLogin(true);
     };
     return (
         <div className={cx("wrapper")}>

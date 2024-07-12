@@ -8,6 +8,10 @@
     border-radius: 8px;
     font-size: 1.8rem;
     border: 1px solid transparent;
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
 }
 
 .icon + .title,
@@ -56,8 +60,24 @@
 
 .icon {
     display: inline-block;
-    width: 24px;
+    position: absolute;
+    font-size: 2.4rem;
+    color: var(--black-color);
     text-align: center;
+}
+.iconRight {
+    display: inline-block;
+    font-size: 2.4rem;
+    color: var(--black-color);
+    text-align: center;
+}
+.submit {
+    color: #fe2c55;
+    border-color: currentColor;
+    &:hover {
+        border-color: currentColor;
+        background-color: rgba(254, 44, 84, 0.06);
+    }
 }
 
 .text {
@@ -74,9 +94,29 @@
 
 .large {
     padding: 14px 16px;
+    width: 100%;
     min-width: 140px;
 }
 
 .title {
     width: 100%;
+}
+
+/// animation
+
+.loading {
+    animation: loadingAnimation 1s linear infinite; /* Đặt thời gian và kiểu animation */
+    transform-origin: center; /* Đặt điểm gốc của transform */
+}
+
+@keyframes loadingAnimation {
+    to {
+        transform: rotate(360deg); /* Xoay 360 độ */
+    }
+    from {
+        transform: rotate(0deg); /* Khởi đầu từ 0 độ */
+    }
+}
+.hidden {
+    opacity: 0;
 }

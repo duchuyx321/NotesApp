@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     const [isHidden] = useContexts();
-    console.log(isHidden);
+
     return (
         <div className={cx("wrapper")}>
             <Header />

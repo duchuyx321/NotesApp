@@ -33,9 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-// create index
-app.use(createIndex);
-
 // connect database
 db();
 // routers

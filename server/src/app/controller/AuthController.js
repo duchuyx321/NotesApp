@@ -27,23 +27,22 @@ class AuthController {
     async login(req, res, next) {
         try {
             const user = await User.findOne({
-                username: req.body.username,
-                email: req.body.email,
+                username: req.body.username.trim(),
             });
             if (!user.username) {
-                res.status(404).json({ message: 'User not found' });
+                res.status(401).json({ message: 'User not found' });
                 return;
             }
-            if (!user.email) {
-                res.status(404).json({ message: 'User not found' });
+            if (user.email != req.body.email.trim()) {
+                res.status(401).json({ message: 'Email not found' });
                 return;
             }
             const hashPassword = await bcrypt.compare(
-                req.body.password,
+                req.body.password.trim(),
                 user.password,
             );
             if (!hashPassword) {
-                res.status(404).json({ message: 'Password not found' });
+                res.status(401).json({ message: 'Password not found' });
                 return;
             }
             const accessToken = AccessToken(user);
@@ -56,7 +55,7 @@ class AuthController {
             });
             const { password, ...other } = user._doc;
             // res.redirect('/');
-            res.json({ ...other, accessToken });
+            res.status(200).json({ ...other, accessToken });
         } catch (e) {
             res.status(500).json({ message: e.message, next });
         }
@@ -102,8 +101,10 @@ class AuthController {
     async register(req, res, next) {
         try {
             const salt = bcrypt.genSaltSync(10);
-            const hash = bcrypt.hashSync(req.body.password, salt);
+            const hash = bcrypt.hashSync(req.body.password.trim(), salt);
             req.body.password = hash;
+            req.body.email = req.body.email.trim();
+            req.body.username = req.body.username.trim();
 
             const user = new User(req.body);
             await user.save();
@@ -120,7 +121,7 @@ class AuthController {
             });
             res.json({ ...other, accessToken });
         } catch (e) {
-            res.status(500).json({ message: e.message, next });
+            res.status(401).json({ message: e.message, next });
         }
     }
 }
