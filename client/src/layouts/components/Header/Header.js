@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
@@ -15,6 +16,9 @@ import styles from "~/layouts/components/Header/Header.module.scss";
 import Search from "~/layouts/components/Search";
 import Button from "~/components/Button";
 import { useContexts } from "~/hooks/useContext";
+import { logout } from "~/service/authService";
+import Image from "~/components/Image";
+import { user } from "~/service/userService";
 
 const cx = classNames.bind(styles);
 
@@ -39,21 +43,44 @@ const MenuAuth = [
 
 function Header() {
     const [token, setToken] = useState(false);
+    const [eventClick, setEventClick] = useState("");
+    const [valueResult, setValueResult] = useState([]);
     const [isHidden, handleHiddenLogin] = useContexts();
 
     useEffect(() => {
         if (localStorage.getItem("authorization")) {
             setToken(true);
+            const fetchAPI = async () => {
+                const result = await user();
+                setValueResult(result);
+            };
+            fetchAPI();
         }
     }, [token]);
 
     const handleOnchange = (e) => {
-        if (e === "deleteAuth") {
-            console.log("Xóa tài khoản");
-        } else if (e === "logout") {
-            console.log("Đăng xuất");
-        }
+        setEventClick(e);
     };
+    const fetchAPILogout = async () => {
+        const result = await logout();
+        return result;
+    };
+    useEffect(() => {
+        const handleEvent = async () => {
+            if (eventClick === "deleteAuth") {
+                console.log("Xóa tài khoản");
+            } else if (eventClick === "logout") {
+                console.log("Đăng xuất");
+                const result = await fetchAPILogout();
+                if (result.status === 200) {
+                    // console.log(result);
+                    localStorage.removeItem("authorization");
+                    window.location.reload();
+                }
+            }
+        };
+        handleEvent();
+    }, [eventClick]);
 
     const renderResult = (attrs) => (
         <div className={cx("box")} tabIndex="-1" {...attrs}>
@@ -74,7 +101,7 @@ function Header() {
     );
 
     const handleOnclick = () => {
-        handleHiddenLogin(true);
+        handleHiddenLogin(!isHidden);
     };
     return (
         <div className={cx("wrapper")}>
@@ -106,8 +133,8 @@ function Header() {
                         render={renderResult}
                     >
                         <div className={cx("wrapper-avatar")}>
-                            <img
-                                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/1d9206ca61d04b830f4c7819744a02af.jpeg?lk3s=a5d48078&nonce=53415&refresh_token=fc1e45a14d5df0f869b3c16065cdef9e&x-expires=1720627200&x-signature=7acUbK%2Fwt4SeiJrtRqtiH9bZamg%3D&shp=a5d48078&shcp=81f88b70"
+                            <Image
+                                src={valueResult?.image}
                                 alt="avatar"
                                 className={cx("avatar")}
                             />

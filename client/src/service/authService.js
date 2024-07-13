@@ -36,3 +36,12 @@ export const register = async (username, email, password) => {
         console.log(e.message);
     }
 };
+
+export const logout = async () => {
+    try {
+        const res = await request.post("auth/logout");
+        return res;
+    } catch (e) {
+        console.log(e.message);
+    }
+};

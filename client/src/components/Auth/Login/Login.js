@@ -78,10 +78,10 @@ function Login() {
                     );
                     setSubmit(false);
                     handleHiddenLogin(false);
+                    window.location.reload();
                 }
                 setDisabled(true);
                 setLoading(true);
-                window.location.reload();
             };
             fetchAPI();
         }

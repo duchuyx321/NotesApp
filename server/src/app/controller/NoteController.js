@@ -23,21 +23,12 @@ class NoteController {
     // [GET] --/note/search?text="...."
     async search(req, res, next) {
         try {
-            const Authorization = req.headers['authorization'];
-            if (!Authorization) {
-                return res.json({ message: 'please login' });
-            }
-            const token = Authorization.split(' ')[1];
-            jwt.verify(token, process.env.ACCESS_TOKEN, async (err, other) => {
-                if (err) {
-                    return res.json({ message: err.message });
-                }
-                const { id, admin } = other;
+            if (req.userId) {
                 if (req.query.text) {
                     const regexText = new RegExp(req.query.text, 'i');
                     const results = await Notes.find(
                         {
-                            userId: id,
+                            userId: req.userId,
                             $or: [
                                 { title: { $regex: regexText } },
                                 { content: { $regex: regexText } },
@@ -48,7 +39,7 @@ class NoteController {
 
                     res.json(results);
                 }
-            });
+            }
         } catch (e) {
             res.status(500).json({ message: e.message, next });
         }
