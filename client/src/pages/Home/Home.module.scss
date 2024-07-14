@@ -1,0 +1,69 @@
+@mixin line-clamp($lines, $line-height) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: $line-height;
+    word-wrap: break-word;
+}
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+.wrapper-NoLogin {
+    width: 100%;
+    height: 89vh;
+    background-image: url("https://res.cloudinary.com/dglgdtov0/image/upload/v1720881510/Screenshot_2024-07-04_222755-fotor-2024071321385_uwjwbn.png");
+    background-position: center;
+    background-size: cover;
+}
+.wrapper-image {
+    width: 100%;
+    height: 89vh;
+    background-image: url("https://res.cloudinary.com/dglgdtov0/image/upload/v1720213018/Screenshot_2024-07-06_035631_otsfoz.png");
+    background-position: center;
+    background-size: cover;
+}
+.container {
+    width: 100%;
+    min-height: 89vh;
+    background-image: url("https://res.cloudinary.com/dglgdtov0/image/upload/v1720213076/Screenshot_2024-07-06_035741_ldxahf.png");
+    background-position: center;
+    background-size: cover;
+}
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.4rem 3rem;
+    padding: 2.3rem 2.8rem;
+}
+.inner {
+    width: 35rem;
+    height: 22rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 4rem;
+}
+.title {
+    line-height: 3.8rem;
+    max-width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 0.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Đảm bảo không xuống dòng */
+}
+
+.note {
+    max-height: 100%;
+    text-align: center;
+    font-size: 1.6rem;
+    padding: 0 1.6rem;
+    overflow: hidden;
+    @include line-clamp(3, 3.8rem); // Số dòng tối đa hiển thị;
+}

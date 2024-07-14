@@ -73,7 +73,6 @@ function Header() {
                 console.log("Đăng xuất");
                 const result = await fetchAPILogout();
                 if (result.status === 200) {
-                    // console.log(result);
                     localStorage.removeItem("authorization");
                     window.location.reload();
                 }

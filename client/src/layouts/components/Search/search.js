@@ -21,12 +21,14 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        const fetchAPI = async () => {
-            const result = await searchService.search(debouncedValue);
-            setSearchResult(Array.isArray(result) ? result : []);
-            console.log(result);
-        };
-        fetchAPI();
+        if (localStorage.getItem("authorization")) {
+            const fetchAPI = async () => {
+                const result = await searchService.search(debouncedValue);
+                setSearchResult(Array.isArray(result) ? result : []);
+                console.log(result);
+            };
+            fetchAPI();
+        }
     }, [debouncedValue]);
 
     const handleOnchange = (e) => {

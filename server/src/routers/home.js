@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const HomeController = require('../app/controller/HomeController');
-const { CheckCookie } = require('../app/middleware/CheckCookie');
+const CheckAuthorization = require('../app/middleware/CheckAuthorization');
 
-router.get('/', CheckCookie, HomeController.home);
+router.get('/', CheckAuthorization, HomeController.home);
 
 module.exports = router;

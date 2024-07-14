@@ -98,7 +98,6 @@ function Login() {
         setPassword(e.target.value);
     };
     const handleOnSubmit = (e) => {
-        // e.preventDefault();
         setSubmit(true);
     };
     const warningLogin = (e) => {
@@ -112,6 +111,9 @@ function Login() {
             setWarningUsername("Username không đúng!");
             warning1.current.hidden = false;
         }
+        setUsername((prevUsername) => username); // Sử dụng hàm callback để cập nhật username
+        setEmail((prevEmail) => email); // Sử dụng hàm callback để cập nhật email
+        setPassword((prevPassword) => password); // Sử dụng hàm callback để cập nhật password
     };
     const handleOnClose = () => {
         handleHiddenLogin(!isHidden);

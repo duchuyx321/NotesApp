@@ -14,7 +14,18 @@ httpsRequest.interceptors.request.use(
         return config;
     },
     (error) => {
-        return Promise.reject(new Error(error.message));
+        const { response } = error;
+        if (
+            response &&
+            response.status === 402 &&
+            response.data.message === "jwt expired"
+        ) {
+            // Xử lý khi JWT đã hết hạn
+            console.log("JWT đã hết hạn. Yêu cầu đăng nhập lại.");
+            // Thực hiện các hành động cần thiết, ví dụ như đưa người dùng đến trang đăng nhập lại
+            // Ví dụ: window.location.href = '/login';
+        }
+        return Promise.reject(error); // Ném lại lỗi để cho phép xử lý tiếp theo
     }
 );
 
