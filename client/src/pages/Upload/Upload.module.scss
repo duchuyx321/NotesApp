@@ -1,0 +1,27 @@
+.wrapper {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 60rem;
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    border-color: rgba(0, 0, 0, 0.24);
+    padding: 2.4rem;
+}
+.wrapper-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+.input {
+    background-color: rgb(255, 234, 0);
+}
+.textarea {
+    max-width: 100%;
+}

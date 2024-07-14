@@ -1,32 +1,33 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+
+import { refresh } from "~/service/authService";
 
 const httpsRequest = axios.create({
     baseURL: "http://localhost:5000/",
+    withCredentials: true,
 });
+const token = localStorage.getItem("authorization");
 
+// Thêm token vào header của mỗi yêu cầu
 httpsRequest.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("authorization");
         if (token) {
-            config.headers.Authorization = token;
-        }
+            const date = new Date();
+            const decodeToken = jwtDecode(token);
+            if (decodeToken.exp === date.getTime() / 1000 - 120) {
+                const fetchAPI = async () => {
+                    const result = await refresh();
 
+                    // thêm vào local storage
+                    localStorage.setItem("authorization", `Bearer ${result}`);
+                };
+                fetchAPI();
+            } else config.headers.Authorization = token;
+        }
         return config;
     },
-    (error) => {
-        const { response } = error;
-        if (
-            response &&
-            response.status === 402 &&
-            response.data.message === "jwt expired"
-        ) {
-            // Xử lý khi JWT đã hết hạn
-            console.log("JWT đã hết hạn. Yêu cầu đăng nhập lại.");
-            // Thực hiện các hành động cần thiết, ví dụ như đưa người dùng đến trang đăng nhập lại
-            // Ví dụ: window.location.href = '/login';
-        }
-        return Promise.reject(error); // Ném lại lỗi để cho phép xử lý tiếp theo
-    }
+    (error) => Promise.reject(error)
 );
 
 export const get = async (path, config = {}) => {

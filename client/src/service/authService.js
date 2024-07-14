@@ -2,11 +2,15 @@ import * as request from "~/util/httpsRequest";
 
 export const login = async (username, email, password) => {
     try {
-        const res = await request.post("auth/login", {
-            username,
-            email,
-            password,
-        });
+        const res = await request.post(
+            "auth/login",
+            {
+                username,
+                email,
+                password,
+            },
+            { withCredentials: true }
+        );
         return res.data;
     } catch (error) {
         if (
@@ -26,11 +30,15 @@ export const login = async (username, email, password) => {
 
 export const register = async (username, email, password) => {
     try {
-        const res = await request.post("auth/login", {
-            username,
-            email,
-            password,
-        });
+        const res = await request.post(
+            "auth/login",
+            {
+                username,
+                email,
+                password,
+            },
+            { withCredentials: true }
+        );
         return res.data;
     } catch (e) {
         console.log(e.message);
@@ -39,9 +47,22 @@ export const register = async (username, email, password) => {
 
 export const logout = async () => {
     try {
-        const res = await request.post("auth/logout");
+        const res = await request.post("auth/logout", {
+            withCredentials: true,
+        });
         return res;
     } catch (e) {
         console.log(e.message);
+    }
+};
+
+export const refresh = async () => {
+    try {
+        const res = await request.post("auth/refresh", {
+            withCredentials: true,
+        });
+        return res.data;
+    } catch (e) {
+        console.log(e);
     }
 };

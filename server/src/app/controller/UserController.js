@@ -7,9 +7,8 @@ class UserController {
     async user(req, res, next) {
         try {
             if (req.userId) {
-                console.log(req.userId);
                 const user = await User.findOne({ _id: req.userId });
-                console.log(user);
+
                 res.status(200).json(user);
             }
         } catch (e) {

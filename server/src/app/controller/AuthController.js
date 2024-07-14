@@ -49,7 +49,7 @@ class AuthController {
             const refreshToken = RefreshToken(user);
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 path: '/',
                 sameSite: 'strict',
             });
@@ -64,14 +64,18 @@ class AuthController {
     // [POST] --/auth/refresh
     async refresh(req, res, next) {
         try {
-            const refreshToken = res.cookie.refreshToken;
+            const refreshToken = req.cookies.refreshToken;
+            console.log(refreshToken);
             if (!refreshToken) {
                 res.status(403).json({ message: 'you are not login' });
             }
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, user) => {
                 if (err) {
-                    response.json({ message: err });
+                    return res
+                        .status(403)
+                        .json({ message: 'Invalid access token' });
                 }
+                console.log(user);
                 const newAccessToken = AccessToken(user);
                 const newRefreshToken = RefreshToken(user);
                 res.cookie('refreshToken', newRefreshToken, {
@@ -81,10 +85,10 @@ class AuthController {
                     sameSite: 'strict',
                 });
 
-                res.json({ accessToken: newAccessToken }); //accessToken: newAccessToken
+                res.status(200).json({ accessToken: newAccessToken }); //accessToken: newAccessToken
             });
-        } catch (e) {
-            res.status(500).json({ message: e.message, next });
+        } catch (error) {
+            res.status(500).json({ message: error });
         }
     }
 
@@ -115,7 +119,7 @@ class AuthController {
             const { password, ...other } = user._doc;
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 path: '/',
                 sameSite: 'strict',
             });

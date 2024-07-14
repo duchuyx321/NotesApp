@@ -15,7 +15,12 @@ const createIndex = require('./app/middleware/CreateIndex');
 const app = express();
 
 // cors
-app.use(cors());
+app.use(
+    cors({
+        origin: 'http://localhost:3000', // Chỉ định origin của client
+        credentials: true, // Cho phép gửi cookie giữa các domain khác nhau
+    }),
+);
 
 // method-Override
 app.use(methodOverride('_method'));
