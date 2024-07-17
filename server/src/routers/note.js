@@ -11,13 +11,13 @@ router.get('/formCreate', NoteController.formCreate);
 router.get('/search', CreateIndex, checkAuthorization, NoteController.search);
 
 // [POST /note]
-router.post('/create', NoteController.create);
+router.post('/create', checkAuthorization, NoteController.create);
 
 // [PUT /note]
 router.put('/update/:id', NoteController.update);
 
 // [DELETE /note]
-router.delete('/delete/:id', NoteController.delete);
-router.delete('/destroy/:id', NoteController.destroy);
+router.delete('/delete', NoteController.delete);
+router.delete('/destroy', NoteController.destroy);
 
 module.exports = router;

@@ -52,13 +52,13 @@ class NoteController {
                 res.status(400).json({ message: 'title not found' });
             } else if (!req.body.content) {
                 res.status(400).json({ message: 'content not found' });
-            } else if (!req.body.userId) {
-                res.status(400).json({ message: ' id user not found' });
             }
-            const note = new Notes(req.body);
+            const title = req.body.title.trim();
+            const content = req.body.content.trim();
+            const userId = req.userId;
+            const note = new Notes({ title, content, userId });
             await note.save();
-            res.redirect('/');
-            // res.status(200).json(req.body);
+            res.status(200).json({ message: 'create successfully!' });
         } catch (e) {
             res.json({ message: e.message, next });
         }
@@ -73,17 +73,17 @@ class NoteController {
             res.status(404).json({ message: e.message, next });
         }
     }
-    //[DELETE] --/note/delete/:id
+    //[DELETE] --/note/delete
     async delete(req, res, next) {
         try {
-            await Notes.delete({ _id: req.params.id });
+            await Notes.delete({ _id: { $in: req.body.noteIds } });
             res.status(200).json({ message: 'Delete success' });
         } catch (e) {
             res.status(404).json({ message: e.message, next });
         }
     }
 
-    //[DELETE] --/note/destroy/:id
+    //[DELETE] --/note/destroy
     async destroy(req, res, next) {
         try {
             await Notes.deleteOne({ _id: req.params.id });

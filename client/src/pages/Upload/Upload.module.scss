@@ -44,3 +44,15 @@
     color: var(--white-color);
     caret-color: rgb(254, 44, 85);
 }
+.wrapper-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.submit {
+    width: 10rem;
+    height: 5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}

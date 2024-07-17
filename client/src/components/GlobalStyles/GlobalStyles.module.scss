@@ -29,7 +29,9 @@ button {
 
     color: var(--text-color);
 }
-
+label {
+    user-select: none;
+}
 body {
     font-size: 1.6rem;
     font-family: "Oswald", sans-serif;

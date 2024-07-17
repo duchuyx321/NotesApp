@@ -36,8 +36,11 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: relative;
     gap: 2.4rem 3rem;
-    padding: 2.3rem 2.8rem;
+    padding: 1.2rem 1.8rem;
 }
 .inner {
     width: 34rem;
@@ -66,4 +69,33 @@
     padding: 0 1.6rem;
     overflow: hidden;
     @include line-clamp(3, 3.8rem); // Số dòng tối đa hiển thị;
+}
+
+// check-box
+.container-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2.4rem 1.6rem 0 0;
+    font-size: 2rem;
+}
+
+.checkbox {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 4px;
+}
+.inner-checkbox {
+    position: relative;
+    left: -2.4rem;
+    top: -2.4rem;
+}
+.checkbox-item {
+    width: 1.6rem;
+    height: 1.6rem;
+    outline: none;
+}
+
+.container-box-btn {
+    margin-right: 2.4rem;
 }

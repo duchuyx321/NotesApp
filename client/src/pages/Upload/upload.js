@@ -1,22 +1,37 @@
 import classNames from "classnames/bind";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "~/pages/Upload/Upload.module.scss";
 import Button from "~/components/Button";
-import { refresh } from "~/service/authService";
+import { create } from "~/service/NoteService";
 
 const cx = classNames.bind(styles);
 
 function Upload() {
-    const handleOnSubmit = () => {
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [disabled, setDisabled] = useState(false);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (title !== "" && content !== "") {
+            setDisabled(false);
+        } else {
+            setDisabled(true);
+        }
+    }, [content, title]);
+    function handleOnSubmit(e) {
+        e.preventDefault();
         const fetchAPI = async () => {
-            const result = await refresh();
+            const result = await create(title, content);
             console.log(result);
+            navigate("/");
         };
         fetchAPI();
-    };
+    }
     return (
         <div className={cx("wrapper")}>
-            <form className={cx("container")}>
+            <form className={cx("container")} onSubmit={handleOnSubmit}>
                 <div className={cx("wrapper-input")}>
                     <label htmlFor="title" className={cx("form-label")}>
                         Tiêu đề ghi chú
@@ -26,6 +41,7 @@ function Upload() {
                         className={cx("input")}
                         id="title"
                         placeholder="nhập tiêu đề ghi chú vào đây....."
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
                 <div className={cx("wrapper-input")}>
@@ -37,14 +53,16 @@ function Upload() {
                         id="content"
                         rows={10}
                         placeholder="Nhập nội dung ghi chú vào đây....."
+                        onChange={(e) => setContent(e.target.value)}
                     ></textarea>
                 </div>
                 <div className={cx("wrapper-button")}>
                     <Button
-                        type="button"
+                        type="submit"
+                        small
                         submit
+                        disabled={disabled}
                         className={cx("submit")}
-                        onClick={handleOnSubmit}
                     >
                         Save
                     </Button>
