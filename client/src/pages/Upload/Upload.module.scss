@@ -1,8 +1,9 @@
 .wrapper {
     width: 100%;
-    height: 80vh;
+    height: 89vh;
     display: flex;
     justify-content: center;
+    background: linear-gradient(to bottom, #ffeaea, #efcdde);
     align-items: center;
 }
 
@@ -12,16 +13,34 @@
     border-radius: 8px;
     flex-direction: column;
     border-color: rgba(0, 0, 0, 0.24);
+    background-color: #e9cece;
+    box-shadow: 8px 12px 12px 8px rgba(0, 0, 0, 0.3);
     padding: 2.4rem;
 }
 .wrapper-input {
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
+    margin-bottom: 1.6rem;
 }
 .input {
-    background-color: rgb(255, 234, 0);
+    background-color: rgba(119, 114, 114, 0.3);
+    border-radius: 4px;
+    height: 5.6rem;
+    padding: 1.2rem 1.6rem;
+    font-size: 1.8rem;
+    caret-color: rgb(254, 44, 85);
 }
 .textarea {
     max-width: 100%;
+    background-color: rgba(119, 114, 114, 0.3);
+    border: none;
+    outline: none;
+    padding: 1.6rem;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--white-color);
+    caret-color: rgb(254, 44, 85);
 }

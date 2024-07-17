@@ -72,10 +72,7 @@ function Login() {
                     warningLogin(result.e); // Xử lý lỗi khi status là 500
                 } else {
                     setRenderResult(result);
-                    localStorage.setItem(
-                        "authorization",
-                        `Bearer ${result.accessToken}`
-                    );
+                    localStorage.setItem("authorization", result.accessToken);
                     setSubmit(false);
                     handleHiddenLogin(false);
                     window.location.reload();

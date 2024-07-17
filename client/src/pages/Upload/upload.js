@@ -25,7 +25,7 @@ function Upload() {
                         type="text"
                         className={cx("input")}
                         id="title"
-                        placeholder="nhập tiêu đề ghi chú"
+                        placeholder="nhập tiêu đề ghi chú vào đây....."
                     />
                 </div>
                 <div className={cx("wrapper-input")}>
@@ -36,11 +36,13 @@ function Upload() {
                         className={cx("textarea")}
                         id="content"
                         rows={10}
+                        placeholder="Nhập nội dung ghi chú vào đây....."
                     ></textarea>
                 </div>
                 <div className={cx("wrapper-button")}>
                     <Button
                         type="button"
+                        submit
                         className={cx("submit")}
                         onClick={handleOnSubmit}
                     >

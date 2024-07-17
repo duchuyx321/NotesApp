@@ -15,7 +15,7 @@ httpsRequest.interceptors.request.use(
         if (token) {
             const date = new Date();
             const decodeToken = jwtDecode(token);
-            if (decodeToken.exp === date.getTime() / 1000 - 120) {
+            if (decodeToken.exp === date.getTime() / 1000 - 60) {
                 const fetchAPI = async () => {
                     const result = await refresh();
 

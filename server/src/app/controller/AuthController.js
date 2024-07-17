@@ -45,7 +45,7 @@ class AuthController {
                 res.status(401).json({ message: 'Password not found' });
                 return;
             }
-            const accessToken = AccessToken(user);
+            const accessToken = `Bearer ${AccessToken(user)}`;
             const refreshToken = RefreshToken(user);
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
@@ -76,7 +76,7 @@ class AuthController {
                         .json({ message: 'Invalid access token' });
                 }
                 console.log(user);
-                const newAccessToken = AccessToken(user);
+                const newAccessToken = `Bearer ${AccessToken(user)}`;
                 const newRefreshToken = RefreshToken(user);
                 res.cookie('refreshToken', newRefreshToken, {
                     httpOnly: true,
@@ -113,7 +113,7 @@ class AuthController {
             const user = new User(req.body);
             await user.save();
 
-            const accessToken = AccessToken(user);
+            const accessToken = `Bearer ${AccessToken(user)}`;
             const refreshToken = RefreshToken(user);
 
             const { password, ...other } = user._doc;
