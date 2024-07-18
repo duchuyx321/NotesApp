@@ -31,13 +31,14 @@ function Home() {
         if (isSubmit) {
             const fetchAPI = async () => {
                 const result = await deleteNote(selectedIds);
-                console.log(result);
+                if (result.message === "Delete successfully!") {
+                    const updatedResult = await home();
+                    setValueResult(updatedResult);
+                }
             };
             fetchAPI();
         }
     }, [isSubmit]);
-
-    console.log(valueResult);
 
     const handleOnChange = (id) => {
         let updateSelectedIds;
@@ -99,7 +100,11 @@ function Home() {
                     </div>
                     <div className={cx("content")}>
                         {valueResult.map((item) => (
-                            <div className={cx("inner")} key={item._id}>
+                            <Button
+                                to={`/${item.slug}`}
+                                className={cx("inner")}
+                                key={item._id}
+                            >
                                 <span className={cx("inner-checkbox")}>
                                     <input
                                         className={cx("checkbox-item")}
@@ -116,7 +121,7 @@ function Home() {
                                     </h4>
                                     <p className={cx("note")}>{item.content}</p>
                                 </div>
-                            </div>
+                            </Button>
                         ))}
                     </div>
                 </div>

@@ -39,6 +39,10 @@ export const post = async (path, config = {}) => {
     const response = await httpsRequest.post(path, config);
     return response;
 };
+export const put = async (path, config = {}) => {
+    const response = await httpsRequest.put(path, config);
+    return response;
+};
 export const del = async (path, config = {}) => {
     const response = await httpsRequest.delete(path, config);
     return response;

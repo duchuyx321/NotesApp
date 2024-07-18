@@ -9,9 +9,11 @@ const checkAuthorization = require('../app/middleware/CheckAuthorization');
 // [GET /note]
 router.get('/formCreate', NoteController.formCreate);
 router.get('/search', CreateIndex, checkAuthorization, NoteController.search);
+router.get('/edit', NoteController.edit);
 
 // [POST /note]
 router.post('/create', checkAuthorization, NoteController.create);
+router.post('/restore', NoteController.restore);
 
 // [PUT /note]
 router.put('/update/:id', NoteController.update);

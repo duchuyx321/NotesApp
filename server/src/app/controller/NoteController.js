@@ -45,7 +45,16 @@ class NoteController {
         }
     }
 
-    // [POST] ---/note/create
+    // [GET] --/note?slug = "..."
+    async edit(req, res, next) {
+        try {
+            const result = await Notes.findOne({ slug: req.query.slug });
+            res.status(200).json(result);
+        } catch (e) {
+            res.status(403).json(e);
+        }
+    }
+    // [POST] --/note/create
     async create(req, res, next) {
         try {
             if (!req.body.title) {
@@ -64,7 +73,27 @@ class NoteController {
         }
     }
 
-    // [PUT] ---/note/update/:_id
+    // [POST] --/note/restore
+    async restore(req, res, next) {
+        try {
+            const notes = await Notes.restore(
+                { _id: { $in: req.body.noteIds } },
+                (error, result) => {
+                    if (error) {
+                        return res.status(403).json({ message: error.message });
+                    }
+                },
+            );
+            res.status(200).json({
+                message: 'Restored successfully!',
+            });
+            console.log(notes);
+        } catch (e) {
+            res.status(404).json({ message: 'not found Id ', e });
+        }
+    }
+
+    // [PUT] ---/note/update
     async update(req, res, next) {
         try {
             await Notes.updateOne({ _id: req.params.id }, req.body);
@@ -76,8 +105,10 @@ class NoteController {
     //[DELETE] --/note/delete
     async delete(req, res, next) {
         try {
-            await Notes.delete({ _id: { $in: req.body.noteIds } });
-            res.status(200).json({ message: 'Delete success' });
+            await Notes.delete({
+                _id: { $in: req.body.noteIds },
+            });
+            res.status(200).json({ message: 'Delete successfully!' });
         } catch (e) {
             res.status(404).json({ message: e.message, next });
         }
