@@ -25,8 +25,9 @@ const cx = classNames.bind(styles);
 const MenuAuth = [
     {
         content: "Thùng Rác",
+        countRestore: true,
         icon: <FontAwesomeIcon icon={faTrash} />,
-        router: "/",
+        router: "/restore",
         key: "trash",
     },
     {
@@ -89,6 +90,9 @@ function Header() {
                     small
                     to={item.router ? item.router : ""}
                     key={item.key}
+                    countRestore={
+                        item.countRestore ? valueResult.countRestoreNotes : null
+                    }
                     rightIcon={item.icon}
                     className={cx("box-inner")}
                     onClick={() => handleOnchange(item.key)}
@@ -133,7 +137,7 @@ function Header() {
                     >
                         <div className={cx("wrapper-avatar")}>
                             <Image
-                                src={valueResult?.image}
+                                src={valueResult?.user?.image}
                                 alt="avatar"
                                 className={cx("avatar")}
                             />

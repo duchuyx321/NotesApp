@@ -1,4 +1,5 @@
 const User = require('../module/user');
+const Notes = require('../module/notes');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -8,11 +9,14 @@ class UserController {
         try {
             if (req.userId) {
                 const user = await User.findOne({ _id: req.userId });
-
-                res.status(200).json(user);
+                const note = await Notes.countDocumentsWithDeleted({
+                    userId: req.userId,
+                    deleted: 'true',
+                });
+                res.status(200).json({ user, countRestoreNotes: note });
             }
         } catch (e) {
-            res.status(500).json({ message: e.message, next });
+            res.status(500).json({ message: e.message });
         }
     }
 }

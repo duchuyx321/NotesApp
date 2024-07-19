@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "~/components/Button";
 import style from "~/pages/Home/Home.module.scss";
 import { home } from "~/service/homeService";
-import { deleteNote } from "~/service/NoteService";
+import { deleteNotes } from "~/service/NoteService";
 
 const cx = classNames.bind(style);
 function Home() {
@@ -30,7 +30,7 @@ function Home() {
     useEffect(() => {
         if (isSubmit) {
             const fetchAPI = async () => {
-                const result = await deleteNote(selectedIds);
+                const result = await deleteNotes(selectedIds);
                 if (result.message === "Delete successfully!") {
                     const updatedResult = await home();
                     setValueResult(updatedResult);

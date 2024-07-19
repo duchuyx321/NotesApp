@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import style from "~/pages/Upload/Upload.module.scss";
 import Button from "~/components/Button";
-import { editNote, updateNote } from "~/service/NoteService";
+import { editNote, updateNote, deleteNote } from "~/service/NoteService";
 
 const cx = classNames.bind(style);
 
@@ -16,6 +16,7 @@ function Note() {
     const [classed, setClassed] = useState(false);
     const navigate = useNavigate();
     const params = useParams();
+    const noteId = renderResult._id;
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -37,10 +38,10 @@ function Note() {
     function handleOnSubmit(e) {
         e.preventDefault();
         const fetchAPI = async () => {
-            const noteId = renderResult._id;
             const result = await updateNote(noteId, title, content);
-            console.log(result);
-            navigate("/");
+            if (result.messages === "Update Success") {
+                navigate("/");
+            }
         };
         fetchAPI();
     }
@@ -49,6 +50,15 @@ function Note() {
         if (inputRef.current) {
             inputRef.current.focus();
         }
+    };
+    const handleOnDelete = () => {
+        const fetchAPI = async () => {
+            const result = await deleteNote(noteId);
+            if (result.messages === "Delete successfully!") {
+                navigate("/");
+            }
+        };
+        fetchAPI();
     };
     return (
         <div className={cx("wrapper")}>
@@ -62,7 +72,11 @@ function Note() {
                     <Button className={cx("btn-edit")} onClick={handleOnEdit}>
                         Chỉnh sửa
                     </Button>
-                    <Button deleteBtn className={cx("btn-delete")}>
+                    <Button
+                        deleteBtn
+                        className={cx("btn-delete")}
+                        onClick={handleOnDelete}
+                    >
                         Xóa
                     </Button>
                 </div>

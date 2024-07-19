@@ -1,0 +1,71 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.6rem;
+}
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+thead {
+    color: #981b1b;
+    background: #fcd1d1;
+}
+.table th,
+.table td {
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Đặt màu và kiểu đường viền */
+    padding: 8px; /* Đặt khoảng cách bên trong */
+}
+
+.table-tr {
+    text-align: center;
+}
+.table-stt {
+    width: 5%;
+}
+
+.table-title {
+    width: 25%;
+}
+
+.table-content {
+    width: 40%;
+}
+
+.table-date {
+    width: 13%;
+}
+
+.table-btn {
+    width: 17%;
+}
+
+.btn {
+    width: 100%;
+    height: 3rem;
+    border-radius: 4px;
+    font-size: 1.6rem;
+}
+.restore {
+    background-color: #12e7ffcd;
+    margin-bottom: 1.2rem;
+}
+.destroy {
+    background-color: #ff1616;
+}
+.wrapper-time {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 1.6rem;
+}

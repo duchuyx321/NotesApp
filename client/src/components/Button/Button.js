@@ -22,6 +22,7 @@ const Button = React.forwardRef(
             submit = false,
             loading = false,
             hidden = false,
+            countRestore = null,
             id,
             children,
             className,
@@ -79,7 +80,18 @@ const Button = React.forwardRef(
                         {leftIcon}
                     </span>
                 )}
-                <span className={cx("title")}>{children}</span>
+                <span className={cx("title")}>
+                    {countRestore ? (
+                        <span className={cx("title-inner")}>
+                            <span className={cx("children")}>{children}</span>
+                            <span className={cx("countRestore")}>
+                                ({countRestore})
+                            </span>
+                        </span>
+                    ) : (
+                        children
+                    )}
+                </span>
                 {rightIcon && (
                     <span className={cx("iconRight")}>{rightIcon}</span>
                 )}

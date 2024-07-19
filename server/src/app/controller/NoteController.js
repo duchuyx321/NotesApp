@@ -54,6 +54,22 @@ class NoteController {
             res.status(403).json(e);
         }
     }
+
+    // [GET] --/note/restoreNotes
+    async restoreNote(req, res, next) {
+        try {
+            if (!req.userId) {
+                res.status(400).json({ message: 'you not logged in' });
+            }
+            const notes = await Notes.findWithDeleted({
+                userId: req.userId,
+                deleted: 'true',
+            });
+            res.status(200).json(notes);
+        } catch (e) {
+            res.status(500).json({ message: e });
+        }
+    }
     // [POST] --/note/create
     async create(req, res, next) {
         try {
@@ -111,6 +127,15 @@ class NoteController {
             res.status(200).json({ message: 'Delete successfully!' });
         } catch (e) {
             res.status(404).json({ message: e.message, next });
+        }
+    }
+    // [DELETE] --/note/deleteNote
+    async deleteNote(req, res, next) {
+        try {
+            await Notes.delete({ _id: req.body.noteId });
+            res.status(200).json({ message: 'Delete successfully!' });
+        } catch (e) {
+            res.status(404).json({ message: e });
         }
     }
 

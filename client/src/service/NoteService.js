@@ -37,7 +37,17 @@ export const updateNote = async (noteId, title, content) => {
 };
 
 // delete note
-export const deleteNote = async (noteIds = []) => {
+export const deleteNote = async (noteId) => {
+    try {
+        const res = await request.del("note/deleteNote", { noteId });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// delete notes
+export const deleteNotes = async (noteIds = []) => {
     try {
         const res = await request.del("note/delete", { data: { noteIds } });
         return res.data;
@@ -47,3 +57,13 @@ export const deleteNote = async (noteIds = []) => {
 };
 
 // destroy note
+
+// RestoreNotes note [find note with delete]
+export const restoreNotes = async () => {
+    try {
+        const res = await request.get("note/restoreNotes");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
