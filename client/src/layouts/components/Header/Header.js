@@ -46,7 +46,7 @@ function Header() {
     const [token, setToken] = useState(false);
     const [eventClick, setEventClick] = useState("");
     const [valueResult, setValueResult] = useState([]);
-    const [isHidden, handleHiddenLogin] = useContexts();
+    const { isHidden, handleHiddenLogin } = useContexts();
 
     useEffect(() => {
         if (localStorage.getItem("authorization")) {

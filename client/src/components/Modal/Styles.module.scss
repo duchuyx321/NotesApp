@@ -1,0 +1,133 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 11;
+}
+.container {
+    width: 45rem;
+    height: 25rem;
+    border-radius: 8px;
+    padding: 1.6rem 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+}
+.modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.6rem 4px;
+    font-size: 3.4rem;
+}
+.modal-content {
+    height: 100%;
+    padding: 0 1.6rem 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+}
+.content {
+    font-size: 1.8rem;
+}
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px 1.6rem 0;
+}
+.btn-handle {
+    width: 10rem;
+    height: 4rem;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-right: 8px;
+}
+.close {
+    background-color: #6c757d;
+}
+.delete {
+    background-color: rgba(255, 0, 0, 0.919);
+}
+.edit {
+    background-color: #0d6efd;
+}
+
+.modal-header-btn {
+    font-size: 3rem;
+}
+
+.notify {
+    position: absolute;
+    top: 2rem;
+    right: -5px;
+    width: 35rem;
+    height: 6rem;
+    border-radius: 4px;
+    background-color: #c3f3d7;
+    display: flex;
+    align-items: center;
+    animation: animationRun 6s ease-in-out;
+    opacity: 0;
+    transition: right 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    & ::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 1rem;
+        background-color: #2fd573;
+        animation: animationNotify 5s linear;
+        animation-delay: 0.5s;
+    }
+}
+.notify-inner {
+    width: 100%;
+    padding: 0 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #2fd573;
+    font-size: 2rem;
+}
+
+@keyframes animationNotify {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 100%; /* Giãn ra toàn bộ chiều rộng */
+        border-radius: 0 5px;
+    }
+    100% {
+        width: 0%; /* Thu lại về 0 */
+    }
+}
+
+@keyframes animationRun {
+    0% {
+        right: -50rem;
+        opacity: 0;
+    }
+    50% {
+        right: -5px;
+        opacity: 1;
+    }
+    90% {
+        right: -5px;
+        opacity: 1;
+    }
+    100% {
+        right: -50rem;
+        opacity: 0;
+    }
+}

@@ -15,13 +15,14 @@ router.get('/edit', NoteController.edit);
 // [POST /note]
 router.post('/create', checkAuthorization, NoteController.create);
 router.post('/restore', NoteController.restore);
+router.post('/restore', NoteController.manyRestore);
 
 // [PUT /note]
 router.put('/update/:id', NoteController.update);
 
 // [DELETE /note]
-router.delete('/delete', NoteController.delete);
 router.delete('/deleteNote', NoteController.deleteNote);
+router.delete('/delete', NoteController.delete);
 router.delete('/destroy', NoteController.destroy);
 
 module.exports = router;

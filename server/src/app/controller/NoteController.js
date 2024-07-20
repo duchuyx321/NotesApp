@@ -89,8 +89,8 @@ class NoteController {
         }
     }
 
-    // [POST] --/note/restore
-    async restore(req, res, next) {
+    // [POST] --/note/manyRestore
+    async manyRestore(req, res, next) {
         try {
             const notes = await Notes.restore(
                 { _id: { $in: req.body.noteIds } },
@@ -108,7 +108,24 @@ class NoteController {
             res.status(404).json({ message: 'not found Id ', e });
         }
     }
-
+    async restore(req, res, next) {
+        try {
+            const notes = await Notes.restore(
+                { _id: req.body.noteId },
+                (error) => {
+                    if (error) {
+                        return res.status(403).json({ message: error.message });
+                    }
+                },
+            );
+            res.status(200).json({
+                message: 'Restored successfully!',
+            });
+            console.log(notes);
+        } catch (e) {
+            res.status(404).json({ message: 'not found Id ', e });
+        }
+    }
     // [PUT] ---/note/update
     async update(req, res, next) {
         try {

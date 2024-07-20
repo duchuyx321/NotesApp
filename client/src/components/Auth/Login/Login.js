@@ -23,7 +23,7 @@ function Login() {
     const [submit, setSubmit] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [loading, setLoading] = useState(true);
-    const [isHidden, handleHiddenLogin] = useContexts();
+    const { isHidden, handleHiddenLogin } = useContexts();
 
     const warning1 = useRef("");
     const warning2 = useRef("");

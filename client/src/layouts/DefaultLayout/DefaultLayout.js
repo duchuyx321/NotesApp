@@ -8,7 +8,7 @@ import Auth from "~/components/Auth";
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-    const [isHidden] = useContexts();
+    const { isHidden } = useContexts();
 
     return (
         <div className={cx("wrapper")}>

@@ -4,7 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import style from "~/pages/Upload/Upload.module.scss";
 import Button from "~/components/Button";
-import { editNote, updateNote, deleteNote } from "~/service/NoteService";
+import { editNote, updateNote } from "~/service/NoteService";
+import Modal from "~/components/Modal";
+import { useContexts } from "~/hooks/useContext";
 
 const cx = classNames.bind(style);
 
@@ -14,6 +16,8 @@ function Note() {
     const [renderResult, setRenderResult] = useState([]);
     const [disabled, setDisabled] = useState(true);
     const [classed, setClassed] = useState(false);
+    const { isClosed, handleIsClosed } = useContexts();
+
     const navigate = useNavigate();
     const params = useParams();
     const noteId = renderResult._id;
@@ -52,13 +56,8 @@ function Note() {
         }
     };
     const handleOnDelete = () => {
-        const fetchAPI = async () => {
-            const result = await deleteNote(noteId);
-            if (result.messages === "Delete successfully!") {
-                navigate("/");
-            }
-        };
-        fetchAPI();
+        handleIsClosed(!isClosed);
+        console.log(isClosed);
     };
     return (
         <div className={cx("wrapper")}>
@@ -124,6 +123,7 @@ function Note() {
                     </Button>
                 </div>
             </form>
+            {isClosed ? <Modal deleted noteId={noteId} /> : null}
         </div>
     );
 }

@@ -8,11 +8,23 @@ export const useContexts = () => {
 
 export const ContextProvider = ({ children }) => {
     const [isHidden, setIsHidden] = useState(false);
+    const [isClosed, setIsClosed] = useState(false);
 
     const handleHiddenLogin = (is) => {
         setIsHidden(is);
     };
-    const value = useMemo(() => [isHidden, handleHiddenLogin], [isHidden]);
+    const handleIsClosed = (is) => {
+        setIsClosed(is);
+    };
+    const value = useMemo(
+        () => ({
+            isHidden,
+            handleHiddenLogin,
+            isClosed,
+            handleIsClosed,
+        }),
+        [isClosed, isHidden]
+    );
 
     return (
         <CreateContext.Provider value={value}>

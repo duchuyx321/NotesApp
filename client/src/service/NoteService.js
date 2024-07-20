@@ -39,8 +39,8 @@ export const updateNote = async (noteId, title, content) => {
 // delete note
 export const deleteNote = async (noteId) => {
     try {
-        const res = await request.del("note/deleteNote", { noteId });
-        return res.data;
+        const res = await request.del("note/deleteNote", { data: { noteId } });
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -62,6 +62,16 @@ export const deleteNotes = async (noteIds = []) => {
 export const restoreNotes = async () => {
     try {
         const res = await request.get("note/restoreNotes");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+// restore one note
+export const restore = async (noteId) => {
+    try {
+        const res = await request.post("note/restore", { data: { noteId } });
         return res.data;
     } catch (e) {
         console.log(e);

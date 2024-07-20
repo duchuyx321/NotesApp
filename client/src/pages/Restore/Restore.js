@@ -1,13 +1,20 @@
+/* eslint-disable no-unused-vars */
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 
 import styles from "./Restore.module.scss";
 import { restoreNotes } from "~/service/NoteService";
+import { useContexts } from "~/hooks/useContext";
+import Modal from "~/components/Modal";
 
 const cx = classNames.bind(styles);
 
 function Restore() {
     const [renderResult, setRenderResult] = useState([]);
+    const [isRestore, setIsRestore] = useState(false);
+    const [isDestroy, setIsDestroy] = useState(false);
+    const [noteId, setNoteId] = useState("");
+    const { isClosed, handleIsClosed } = useContexts();
     useEffect(() => {
         if (localStorage.getItem("authorization")) {
             const fetchAPI = async () => {
@@ -49,7 +56,15 @@ function Restore() {
             </div>
         );
     };
-
+    const handleOnClick = (e, id) => {
+        handleIsClosed(!isClosed);
+        setNoteId(id);
+        if (e.target.value === "restore") {
+            setIsRestore(true);
+        } else if (e.target.value === "destroy") {
+            setIsDestroy(true);
+        }
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -71,10 +86,22 @@ function Restore() {
                                 <td>{item.content}</td>
                                 <td>{newDate(item.deletedAt)}</td>
                                 <td className={cx("table-td-btn")}>
-                                    <button className={cx("btn", "restore")}>
+                                    <button
+                                        className={cx("btn", "restore")}
+                                        onClick={(e) =>
+                                            handleOnClick(e, item._id)
+                                        }
+                                        value="restore"
+                                    >
                                         Khôi Phục
                                     </button>
-                                    <button className={cx("btn", "destroy")}>
+                                    <button
+                                        className={cx("btn", "destroy")}
+                                        onClick={(e) =>
+                                            handleOnClick(e, item._id)
+                                        }
+                                        value="destroy"
+                                    >
                                         Xóa Vĩnh Viễn
                                     </button>
                                 </td>
@@ -83,6 +110,13 @@ function Restore() {
                     </tbody>
                 </table>
             </div>
+            {isClosed && (
+                <Modal
+                    destroy={isDestroy}
+                    restore={isRestore}
+                    noteId={noteId}
+                />
+            )}
         </div>
     );
 }
