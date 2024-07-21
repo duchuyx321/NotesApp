@@ -100,9 +100,8 @@ function Home() {
                     </div>
                     <div className={cx("content")}>
                         {valueResult.map((item) => (
-                            <Button
-                                to={`/${item.slug}`}
-                                className={cx("inner")}
+                            <div
+                                className={cx("content-wrapper")}
                                 key={item._id}
                             >
                                 <span className={cx("inner-checkbox")}>
@@ -115,13 +114,20 @@ function Home() {
                                         }
                                     />
                                 </span>
-                                <div className="wrapper-inner">
-                                    <h4 className={cx("title")}>
-                                        {item.title}
-                                    </h4>
-                                    <p className={cx("note")}>{item.content}</p>
-                                </div>
-                            </Button>
+                                <Button
+                                    to={`/${item.slug}`}
+                                    className={cx("inner")}
+                                >
+                                    <div className="wrapper-inner">
+                                        <h4 className={cx("title")}>
+                                            {item.title}
+                                        </h4>
+                                        <p className={cx("note")}>
+                                            {item.content}
+                                        </p>
+                                    </div>
+                                </Button>
+                            </div>
                         ))}
                     </div>
                 </div>

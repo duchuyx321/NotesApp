@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import styles from "./Styles.module.scss";
 import { useContexts } from "~/hooks/useContext";
-import { deleteNote, restore } from "~/service/NoteService";
+import { deleteNote, restore, destroyNote } from "~/service/NoteService";
 const cx = classNames.bind(styles);
 
 const MENU_LIST = {
@@ -37,12 +37,13 @@ function Module({
     edit = false,
     logout = false,
     destroy = false,
-    restore = false,
+    restores = false,
     noteId = "",
+    updateComponent = () => {},
 }) {
     console.log(noteId);
     const { isClosed, handleIsClosed } = useContexts();
-    const [isNotify, setIsNotify] = useState();
+    const [isNotify, setIsNotify] = useState(false);
     const [notify, setNotify] = useState("");
     const navigate = useNavigate();
 
@@ -62,89 +63,105 @@ function Module({
         fetchDeleteAPI();
     };
     const handleUpdate = () => {};
-    const handleDestroy = () => {};
+    const handleDestroy = () => {
+        const fetchDestroyAPI = async () => {
+            const result = await destroyNote(noteId);
+            console.log(result);
+            setNotify(result.message);
+            setIsNotify(true);
+            updateComponent();
+        };
+        fetchDestroyAPI();
+        setTimeout(() => {
+            handleIsClosed(!isClosed);
+        }, 5000);
+    };
     const handleRestore = () => {
         const fetchRestoreAPI = async () => {
             const result = await restore(noteId);
-            if (result.message === "Restored successfully") {
-                setNotify(result.message);
-                setIsNotify(true);
-                handleIsClosed(!isClosed);
-            }
+            setNotify(result.message);
+            setIsNotify(true);
+            updateComponent();
         };
         fetchRestoreAPI();
+        setTimeout(() => {
+            setIsNotify(false);
+            handleIsClosed(!isClosed);
+        }, 500);
     };
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("container")}>
-                <div className={cx("modal-header")}>
-                    <h5 className={cx("title")}>Thông Báo!!</h5>
-                    <button
-                        className={cx("modal-header-btn")}
-                        onClick={handleOnClose}
-                    >
-                        <FontAwesomeIcon icon={faXmark} />
-                    </button>
+            {!isNotify ? (
+                <div className={cx("wrapper-container")}>
+                    <div className={cx("container")}>
+                        <div className={cx("modal-header")}>
+                            <h5 className={cx("title")}>Thông Báo!!</h5>
+                            <button
+                                className={cx("modal-header-btn")}
+                                onClick={handleOnClose}
+                            >
+                                <FontAwesomeIcon icon={faXmark} />
+                            </button>
+                        </div>
+                        <div className={cx("modal-content")}>
+                            <p className={cx("content")}>
+                                {deleted
+                                    ? MENU_LIST.delete.content
+                                    : edit
+                                    ? MENU_LIST.edit.content
+                                    : destroy
+                                    ? MENU_LIST.destroy.content
+                                    : logout
+                                    ? MENU_LIST.logout.content
+                                    : restores
+                                    ? MENU_LIST.restore.content
+                                    : "null"}
+                            </p>
+                        </div>
+                        <div className={cx("modal-footer")}>
+                            <button
+                                className={cx("btn-handle", "close")}
+                                onClick={handleOnClose}
+                            >
+                                Close
+                            </button>
+                            <button
+                                className={cx(
+                                    "btn-handle",
+                                    deleted || destroy ? "delete" : "edit"
+                                )}
+                                onClick={
+                                    deleted
+                                        ? handleDelete
+                                        : edit
+                                        ? handleUpdate
+                                        : destroy
+                                        ? handleDestroy
+                                        : restores
+                                        ? handleRestore
+                                        : "null"
+                                }
+                            >
+                                {deleted
+                                    ? MENU_LIST.delete.btn_handle
+                                    : edit
+                                    ? MENU_LIST.edit.btn_handle
+                                    : destroy
+                                    ? MENU_LIST.destroy.btn_handle
+                                    : logout
+                                    ? MENU_LIST.logout.btn_handle
+                                    : restores
+                                    ? MENU_LIST.restore.btn_handle
+                                    : "null"}
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className={cx("modal-content")}>
-                    <p className={cx("content")}>
-                        {deleted
-                            ? MENU_LIST.delete.content
-                            : edit
-                            ? MENU_LIST.edit.content
-                            : destroy
-                            ? MENU_LIST.destroy.content
-                            : logout
-                            ? MENU_LIST.logout.content
-                            : restore
-                            ? MENU_LIST.restore.content
-                            : "null"}
-                    </p>
-                </div>
-                <div className={cx("modal-footer")}>
-                    <button
-                        className={cx("btn-handle", "close")}
-                        onClick={handleOnClose}
-                    >
-                        Close
-                    </button>
-                    <button
-                        className={cx(
-                            "btn-handle",
-                            deleted || destroy ? "delete" : "edit"
-                        )}
-                        onClick={
-                            deleted
-                                ? handleDelete
-                                : edit
-                                ? handleUpdate
-                                : destroy
-                                ? handleDestroy
-                                : restore
-                                ? handleRestore
-                                : "null"
-                        }
-                    >
-                        {deleted
-                            ? MENU_LIST.delete.btn_handle
-                            : edit
-                            ? MENU_LIST.edit.btn_handle
-                            : destroy
-                            ? MENU_LIST.destroy.btn_handle
-                            : logout
-                            ? MENU_LIST.logout.btn_handle
-                            : restore
-                            ? MENU_LIST.restore.btn_handle
-                            : "null"}
-                    </button>
-                </div>
-            </div>
-            {!isNotify && (
+            ) : (
                 <div className={cx("notify")}>
                     <div className={cx("notify-inner")}>
                         <div className={cx("notify-inner-content")}>
-                            {/* {notify} */}
-                            Restored successfully
+                            {notify}
                         </div>
                         <div className={cx("notify-inner-icon")}>
                             <FontAwesomeIcon icon={faCircleCheck} />

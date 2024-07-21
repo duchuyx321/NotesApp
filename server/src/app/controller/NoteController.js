@@ -108,6 +108,7 @@ class NoteController {
             res.status(404).json({ message: 'not found Id ', e });
         }
     }
+    // [POST] --note/restore
     async restore(req, res, next) {
         try {
             const notes = await Notes.restore(
@@ -121,7 +122,6 @@ class NoteController {
             res.status(200).json({
                 message: 'Restored successfully!',
             });
-            console.log(notes);
         } catch (e) {
             res.status(404).json({ message: 'not found Id ', e });
         }
@@ -159,7 +159,7 @@ class NoteController {
     //[DELETE] --/note/destroy
     async destroy(req, res, next) {
         try {
-            await Notes.deleteOne({ _id: req.params.id });
+            await Notes.deleteOne({ _id: req.body.noteId });
             res.status(200).json({ message: 'destroy Success' });
         } catch (e) {
             res.status(404).json({ message: e.message, next });

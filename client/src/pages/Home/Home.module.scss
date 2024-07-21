@@ -72,6 +72,9 @@
 }
 
 // check-box
+.content-wrapper {
+    position: relative;
+}
 .container-box {
     display: flex;
     justify-content: flex-end;
@@ -86,14 +89,15 @@
     margin-right: 4px;
 }
 .inner-checkbox {
-    position: relative;
-    left: -2.4rem;
-    top: -2.4rem;
+    position: absolute;
+    left: 2.4rem;
+    top: 2.4rem;
 }
 .checkbox-item {
     width: 1.6rem;
     height: 1.6rem;
     outline: none;
+    z-index: 12;
 }
 
 .container-box-btn {

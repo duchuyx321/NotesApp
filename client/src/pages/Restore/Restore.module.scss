@@ -69,3 +69,37 @@ thead {
     gap: 4px;
     font-size: 1.6rem;
 }
+.wrapper-restore-empty {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.empty-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15rem;
+    color: #abb8c3;
+}
+
+.empty-content-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+}
+
+.empty-hollow {
+    text-align: center;
+}
+.empty-link {
+    padding: 0;
+    color: rgb(57, 121, 249);
+}
