@@ -26,7 +26,7 @@ function Home() {
             fetchAPI();
         }
     }, [token]);
-
+    console.log(token);
     useEffect(() => {
         if (isSubmit) {
             const fetchAPI = async () => {

@@ -27,18 +27,18 @@ class AuthController {
     async login(req, res, next) {
         try {
             const user = await User.findOne({
-                username: req.body.username.trim(),
+                username: req.body.username,
             });
             if (!user.username) {
                 res.status(401).json({ message: 'User not found' });
                 return;
             }
-            if (user.email != req.body.email.trim()) {
+            if (user.email != req.body.email) {
                 res.status(401).json({ message: 'Email not found' });
                 return;
             }
             const hashPassword = await bcrypt.compare(
-                req.body.password.trim(),
+                req.body.password,
                 user.password,
             );
             if (!hashPassword) {

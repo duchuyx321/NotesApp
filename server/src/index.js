@@ -7,6 +7,7 @@ const handlebars = require('express-handlebars').engine;
 const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
+require('./util/passport');
 
 const routers = require('./routers');
 const db = require('./config/db/mongodb');
@@ -17,7 +18,7 @@ const app = express();
 // cors
 app.use(
     cors({
-        origin: 'http://localhost:3000', // Chỉ định origin của client
+        origin: process.env.URL_CLIENT, // Chỉ định origin của client
         credentials: true, // Cho phép gửi cookie giữa các domain khác nhau
     }),
 );

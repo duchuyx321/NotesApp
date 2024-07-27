@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "~/components/Auth/Auth.module.scss";
 import Login from "~/components/Auth/Login";
 import Register from "~/components/Auth/Register";
-
+import OtherLogin from "~/components/Other/OtherLogin";
 const cx = classNames.bind(styles);
 function Auth() {
     const [isAuth, setIsAuth] = useState(false);
@@ -12,6 +12,7 @@ function Auth() {
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
                 {isAuth ? <Register /> : <Login />}
+                <OtherLogin isAuth={isAuth} />
                 <div className={cx("next")}>
                     <p className="next-title">
                         {isAuth

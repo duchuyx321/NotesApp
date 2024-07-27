@@ -32,14 +32,16 @@ const MENU_LIST = {
     },
 };
 
+const defaultFn = () => {};
+
 function Module({
     deleted = false,
     edit = false,
-    logout = false,
+    logouted = false,
     destroy = false,
     restores = false,
     noteId = "",
-    updateComponent = () => {},
+    updateComponent = defaultFn,
 }) {
     console.log(noteId);
     const { isClosed, handleIsClosed } = useContexts();
@@ -63,6 +65,7 @@ function Module({
         fetchDeleteAPI();
     };
     const handleUpdate = () => {};
+
     const handleDestroy = () => {
         const fetchDestroyAPI = async () => {
             const result = await destroyNote(noteId);
@@ -111,7 +114,7 @@ function Module({
                                     ? MENU_LIST.edit.content
                                     : destroy
                                     ? MENU_LIST.destroy.content
-                                    : logout
+                                    : logouted
                                     ? MENU_LIST.logout.content
                                     : restores
                                     ? MENU_LIST.restore.content
@@ -148,7 +151,7 @@ function Module({
                                     ? MENU_LIST.edit.btn_handle
                                     : destroy
                                     ? MENU_LIST.destroy.btn_handle
-                                    : logout
+                                    : logouted
                                     ? MENU_LIST.logout.btn_handle
                                     : restores
                                     ? MENU_LIST.restore.btn_handle

@@ -1,0 +1,48 @@
+.wrapper {
+    padding: 0 2rem;
+    width: 100%;
+}
+.wrapper-content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ::after {
+        content: "";
+        width: 23%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        left: 0;
+        bottom: 45%;
+        z-index: 1;
+    }
+    ::before {
+        content: "";
+        width: 23%;
+        height: 1px;
+        background-color: #333;
+        position: absolute;
+        right: 0;
+        bottom: 45%;
+        z-index: 1;
+        font-weight: 400;
+    }
+}
+
+.hintOther {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.wrapper-other {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.6rem;
+    gap: 1.6rem;
+}
+.other-icon {
+    font-size: 4rem;
+}

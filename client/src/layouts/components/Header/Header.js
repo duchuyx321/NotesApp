@@ -88,14 +88,14 @@ function Header() {
                 <Button
                     text
                     small
-                    to={item.router ? item.router : ""}
+                    to={item.router ? item.router : null}
                     key={item.key}
                     countRestore={
                         item.countRestore ? valueResult.countRestoreNotes : null
                     }
                     rightIcon={item.icon}
                     className={cx("box-inner")}
-                    onClick={() => handleOnchange(item.key)}
+                    onClick={!item.router && (() => handleOnchange(item.key))}
                 >
                     {item.content}
                 </Button>

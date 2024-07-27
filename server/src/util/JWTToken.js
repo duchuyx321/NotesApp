@@ -11,4 +11,7 @@ const RefreshToken = (user) =>
         expiresIn: process.env.END_TIME_ACCESS,
     });
 
-module.exports = { AccessToken, RefreshToken };
+module.exports = {
+    AccessToken,
+    RefreshToken,
+};
