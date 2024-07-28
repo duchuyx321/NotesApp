@@ -1,0 +1,65 @@
+.wrapper {
+    width: 100%;
+    font-size: 1.6rem;
+    position: relative;
+}
+
+.title {
+    text-align: center;
+}
+
+// from
+.wrapper-from {
+    padding: 2rem 1rem 0;
+    font-size: 1.6rem;
+}
+.from-input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 1rem;
+}
+
+.label-input {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-left: 16px;
+}
+.input {
+    height: 5rem;
+    border: 1px solid rgba(24, 25, 25, 0.28);
+    border-radius: 8px;
+    padding: 0 1.6rem;
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+.placeholder {
+    margin-left: 8px;
+    color: red;
+}
+.wrapper-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding: 0.8rem;
+}
+.authentication {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.authentication-inner {
+    display: flex;
+    gap: 1.8rem;
+}
+.sendingCode {
+    width: 14rem;
+    height: 5rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background-color: rgba(40, 171, 252, 0.5);
+    font-size: 1.8rem;
+}

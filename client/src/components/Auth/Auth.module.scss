@@ -15,10 +15,11 @@
 }
 
 .container {
+    position: relative;
     width: 50rem;
-    height: 60rem;
+    min-height: 60rem;
     padding: 1.6rem;
-    border-radius: 8px;
+    border-radius: 1.6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -38,4 +39,13 @@
     text-align: end;
     color: #1020f2b0;
     border-bottom: 1px solid #1020f2b0;
+}
+
+.close {
+    position: absolute;
+    top: -1.9rem;
+    right: -8px;
+    font-size: 5rem;
+    color: #ff0000bd;
+    z-index: 12;
 }

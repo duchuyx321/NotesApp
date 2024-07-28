@@ -7,7 +7,7 @@ import Button from "~/components/Button";
 import { login } from "~/service/authService";
 import { useContexts } from "~/hooks/useContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
@@ -74,15 +74,22 @@ function Login() {
                     setRenderResult(result);
                     localStorage.setItem("authorization", result.accessToken);
                     setSubmit(false);
-                    handleHiddenLogin(false);
+                    handleHiddenLogin(!isHidden);
                     window.location.reload();
                 }
                 setDisabled(true);
                 setLoading(true);
             };
             fetchAPI();
+            refreshValues();
         }
     }, [renderResult, submit]);
+
+    const refreshValues = () => {
+        setEmail("");
+        setPassword("");
+        setUsername("");
+    };
 
     const handleOnInputUsername = (e) => {
         setUsername(e.target.value);
@@ -112,15 +119,9 @@ function Login() {
         setEmail((prevEmail) => email); // Sử dụng hàm callback để cập nhật email
         setPassword((prevPassword) => password); // Sử dụng hàm callback để cập nhật password
     };
-    const handleOnClose = () => {
-        handleHiddenLogin(!isHidden);
-    };
+
     return (
         <div className={cx("wrapper")}>
-            <button className={cx("close")} onClick={handleOnClose}>
-                <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-            <h1 className={cx("title")}>Login</h1>
             <form className={cx("wrapper-from")}>
                 <div className={cx("from-input")}>
                     <label htmlFor="username" className={cx("label-input")}>
@@ -156,7 +157,7 @@ function Login() {
                 </div>
                 <div className={cx("from-input")}>
                     <label htmlFor="password" className={cx("label-input")}>
-                        Password
+                        Mật Khẩu
                     </label>
                     <input
                         type="password"
