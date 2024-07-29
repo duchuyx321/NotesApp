@@ -11,7 +11,7 @@ require('./util/passport');
 
 const routers = require('./routers');
 const db = require('./config/db/mongodb');
-const createIndex = require('./app/middleware/CreateIndex');
+const { clearCronJobs } = require('./util/CronJobs');
 
 const app = express();
 
@@ -41,6 +41,9 @@ app.use(express.json());
 
 // connect database
 db();
+
+// clear and update
+clearCronJobs();
 // routers
 routers(app);
 

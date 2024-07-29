@@ -22,16 +22,6 @@ class AuthController {
             res.status(500).json({ message: e.message, next });
         }
     }
-    // [GET] /auth/getCode
-    async getCode(req, res) {
-        try {
-        } catch (e) {
-            res.status(500).json({
-                message: 'can not set code',
-                error: e.message,
-            });
-        }
-    }
 
     //[POST] /auth/login
     async login(req, res, next) {
@@ -136,13 +126,6 @@ class AuthController {
             res.json({ ...other, accessToken });
         } catch (e) {
             res.status(401).json({ message: e.message, next });
-        }
-    }
-    // [POST] /auth/setCode
-    async setCode(req, res, next) {
-        try {
-        } catch (e) {
-            res.status(500).json({ message: e });
         }
     }
 }
