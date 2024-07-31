@@ -36,21 +36,25 @@ class CodeController {
     // [POST] --/code/checkCode
     async checkCode(req, res, next) {
         try {
-            const { code } = req.body;
+            const { code, email } = req.body;
+            const now = new Date();
+            const Code = await CodeModule.findOne({ email, code });
+            const timeNow =
+                (now.getTime() - Code.createdAt.getTime()) / 1000 / 60;
+            if (!Code) {
+                return res.status(403).json({ message: 'code not found!' });
+            } else {
+                if (timeNow > 2) {
+                    return res.status(401).json({ message: 'code expired!' });
+                }
+                return res.status(200).json({ message: 'code exists!' });
+            }
         } catch (e) {
             res.status(500).json({
                 massage: 'you are not code',
                 error: e.massage,
             });
         }
-    }
-
-    randomCode() {
-        let numberRandom = '';
-        for (let i = 0; i < 6; i++) {
-            numberRandom += Math.floor(Math.random() * 10);
-        }
-        return numberRandom;
     }
 }
 

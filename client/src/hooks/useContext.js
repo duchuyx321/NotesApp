@@ -9,6 +9,10 @@ export const useContexts = () => {
 export const ContextProvider = ({ children }) => {
     const [isHidden, setIsHidden] = useState(false);
     const [isClosed, setIsClosed] = useState(false);
+    const [isNext, setIsNext] = useState(false);
+    const [textUsername, setTextUsername] = useState("");
+    const [textEmail, setTextEmail] = useState("");
+    const [textPassword, setTextPassword] = useState("");
 
     const handleHiddenLogin = (is) => {
         setIsHidden(is);
@@ -16,14 +20,25 @@ export const ContextProvider = ({ children }) => {
     const handleIsClosed = (is) => {
         setIsClosed(is);
     };
+    const handleIsNext = (is) => {
+        setIsNext(is);
+    };
     const value = useMemo(
         () => ({
             isHidden,
-            handleHiddenLogin,
             isClosed,
+            isNext,
+            textEmail,
+            textUsername,
+            textPassword,
+            handleHiddenLogin,
             handleIsClosed,
+            handleIsNext,
+            setTextUsername,
+            setTextEmail,
+            setTextPassword,
         }),
-        [isClosed, isHidden]
+        [isClosed, isHidden, isNext, textEmail, textPassword, textUsername]
     );
 
     return (

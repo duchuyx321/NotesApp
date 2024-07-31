@@ -63,3 +63,26 @@
     background-color: rgba(40, 171, 252, 0.5);
     font-size: 1.8rem;
 }
+.wrapper-next {
+    position: relative;
+    width: 50rem;
+    min-height: 30rem;
+    padding: 1.6rem;
+    border-radius: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--white-color);
+}
+
+.wrapper-input {
+    display: flex;
+    gap: 1.8rem;
+}
+.wrapper-back {
+    position: absolute;
+    top: 1rem;
+}
+.from-send {
+    margin-top: 10rem;
+}

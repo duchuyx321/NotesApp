@@ -1,37 +1,46 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
 
 import styles from "~/components/Auth/Register/Register.module.scss";
 import Button from "~/components/Button";
+import HandleRegister from "./handleRegister";
+import { useContexts } from "~/hooks/useContext";
 
 const cx = classNames.bind(styles);
-function Register() {
-    const [disabled, setDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [authenticationPassword, setAuthenticationPassword] = useState("");
-    const [code, setCode] = useState("");
-    const [sendCode, setSendCode] = useState("Gửi Mã");
-    const [timeSendCode, setTimeSendCode] = useState(0);
 
-    const handleOnSubmit = () => {};
-    const handleSendingVerificationCode = (e) => {
-        e.preventDefault();
-        setTimeSendCode(60);
+function Register() {
+    const {
+        isNext,
+        handleIsNext,
+        setTextUsername,
+        setTextEmail,
+        setTextPassword,
+    } = useContexts();
+
+    const {
+        setEmail,
+        setPassword,
+        setUsername,
+        setAuthenticationPassword,
+        email,
+        password,
+        username,
+        warningEmail,
+        warningUsername,
+        warningPassword,
+        warningAuthenticationPass,
+        disabled,
+    } = HandleRegister();
+
+    const handleOnNext = async () => {
+        loadValue();
+        await handleIsNext(!isNext);
     };
-    useEffect(() => {
-        if (timeSendCode > 0) {
-            const intervalId = setInterval(() => {
-                setTimeSendCode((prevTime) => Math.max(prevTime - 1, 0));
-                setSendCode(`Gửi Lại sau ${timeSendCode}`);
-            }, 1000);
-            return () => clearInterval(intervalId);
-        } else if (timeSendCode === 0) {
-            setSendCode("Gửi Lại");
-        }
-    }, [timeSendCode]);
+    const loadValue = () => {
+        setTextUsername(username);
+        setTextEmail(email);
+        setTextPassword(password);
+    };
+
     return (
         <div className={cx("wrapper")}>
             <form className={cx("wrapper-from")}>
@@ -45,10 +54,13 @@ function Register() {
                         className={cx("input")}
                         autoComplete="off"
                         placeholder="Nhập địa chỉ username"
-                        onInput={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
-                    <span className={cx("placeholder")} hidden>
-                        {/* {warningUsername} */}
+                    <span
+                        className={cx("placeholder")}
+                        hidden={warningUsername === ""}
+                    >
+                        {warningUsername}
                     </span>
                 </div>
                 <div className={cx("from-input")}>
@@ -61,10 +73,13 @@ function Register() {
                         className={cx("input")}
                         autoComplete="off"
                         placeholder="Nhập địa chỉ email"
-                        onInput={(e) => setEmail(e)}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
-                    <span className={cx("placeholder")} hidden>
-                        {/* {warningEmail} */}
+                    <span
+                        className={cx("placeholder")}
+                        hidden={warningEmail === ""}
+                    >
+                        {warningEmail}
                     </span>
                 </div>
                 <div className={cx("from-input")}>
@@ -77,10 +92,13 @@ function Register() {
                         className={cx("input")}
                         autoComplete="off"
                         placeholder="Nhập mật khẩu"
-                        onInput={(e) => setPassword(e)}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                    <span className={cx("placeholder")} hidden>
-                        {/* {warningPassword} */}
+                    <span
+                        className={cx("placeholder")}
+                        hidden={warningPassword === ""}
+                    >
+                        {warningPassword}
                     </span>
                 </div>
                 <div className={cx("from-input")}>
@@ -96,58 +114,20 @@ function Register() {
                         className={cx("input")}
                         autoComplete="off"
                         placeholder="Nhập lại mật khẩu"
-                        onInput={(e) => setAuthenticationPassword(e)}
+                        onChange={(e) =>
+                            setAuthenticationPassword(e.target.value)
+                        }
                     />
-                    <span className={cx("placeholder")} hidden>
-                        {/* {warningPassword} */}
-                    </span>
-                </div>
-                <div className={cx("from-input")}>
-                    <div className={cx("authentication")}>
-                        <label
-                            htmlFor="authentication-gmail"
-                            className={cx("label-input")}
-                        >
-                            Mã Xác Nhận
-                        </label>
-
-                        <div className={cx("authentication-inner")}>
-                            <input
-                                type="text"
-                                id="authentication-gmail"
-                                className={cx("input")}
-                                autoComplete="off"
-                                placeholder="Nhập Mã Xác Nhận "
-                                onInput={(e) => setCode(e)}
-                            />
-                            <Button
-                                type="button"
-                                className={cx("sendingCode")}
-                                onClick={(e) =>
-                                    handleSendingVerificationCode(e)
-                                }
-                                disabled={timeSendCode > 0}
-                            >
-                                {sendCode}
-                            </Button>
-                        </div>
-                    </div>
-                    <span className={cx("placeholder")} hidden>
-                        {/* {warningPassword} */}
+                    <span
+                        className={cx("placeholder")}
+                        hidden={warningAuthenticationPass === ""}
+                    >
+                        {warningAuthenticationPass}
                     </span>
                 </div>
             </form>
             <div className={cx("wrapper-btn")}>
-                <Button
-                    to="/"
-                    submit
-                    large
-                    disabled={disabled}
-                    onClick={handleOnSubmit}
-                    loading
-                    // leftIcon={}
-                    hidden={loading}
-                >
+                <Button submit large disabled={disabled} onClick={handleOnNext}>
                     Đăng Kí
                 </Button>
             </div>

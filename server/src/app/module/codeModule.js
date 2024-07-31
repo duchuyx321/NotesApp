@@ -9,4 +9,6 @@ const AuthenticationCode = new Schema(
     { timestamps: true },
 );
 
+AuthenticationCode.index({ email: 1, code: 1 });
+
 module.exports = mongoose.model('AuthenticationCode', AuthenticationCode);
