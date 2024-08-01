@@ -47,7 +47,7 @@ class CodeController {
                 if (timeNow > 2) {
                     return res.status(401).json({ message: 'code expired!' });
                 }
-                return res.status(200).json({ message: 'code exists!' });
+                return res.status(200).json({ message: 'Successful' });
             }
         } catch (e) {
             res.status(500).json({

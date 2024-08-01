@@ -9,6 +9,7 @@ router.get('/formRegister', AuthController.fromRegister);
 // [POST /auth]
 router.post('/login', AuthController.login);
 router.post('/logout', AuthController.logout);
+router.post('/checkAuth', AuthController.checkAuth);
 router.post('/refresh', AuthController.refresh);
 router.post('/register', AuthController.register);
 

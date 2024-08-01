@@ -4,6 +4,7 @@ import styles from "~/components/Auth/Register/Register.module.scss";
 import Button from "~/components/Button";
 import HandleRegister from "./handleRegister";
 import { useContexts } from "~/hooks/useContext";
+import { checkAuth } from "~/service/authService";
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,9 @@ function Register() {
         setPassword,
         setUsername,
         setAuthenticationPassword,
+        setWarningEmail,
+        setWarningUsername,
+        refreshWarning,
         email,
         password,
         username,
@@ -33,7 +37,27 @@ function Register() {
 
     const handleOnNext = async () => {
         loadValue();
-        await handleIsNext(!isNext);
+        const fetchAPI = async () => {
+            const resultValue = await checkAuth(email, username);
+            // console.log(resultValue.massage);
+            if (resultValue.massage === "successfully") {
+                await handleIsNext(!isNext);
+            } else {
+                console.log(resultValue.massage === "Email Đã Tồn Tại");
+                if (resultValue.massage === "Username Đã Tồn Tại") {
+                    refreshWarning();
+                    return setWarningUsername(resultValue.massage);
+                } else if (resultValue.massage === "Email Đã Tồn Tại") {
+                    refreshWarning();
+                    return setWarningEmail(resultValue.massage);
+                }
+                // Nếu có thể có nhiều cảnh báo khác, hãy thêm các điều kiện tương ứng ở đây
+                refreshWarning();
+                // console.log(resultValue.massage); // Kiểm tra giá trị của resultValue.message
+            }
+        };
+        console.log({ warningUsername, warningEmail });
+        await fetchAPI();
     };
     const loadValue = () => {
         setTextUsername(username);

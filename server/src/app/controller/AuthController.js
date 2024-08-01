@@ -125,7 +125,28 @@ class AuthController {
             });
             res.json({ ...other, accessToken });
         } catch (e) {
-            res.status(401).json({ message: e.message, next });
+            res.status(401).json({ message: e, next });
+        }
+    }
+    //[POST] /auth/checkAuth
+    async checkAuth(req, res) {
+        try {
+            const { email, username } = req.body;
+            const checkEmail = await User.findOne({ email });
+            if (checkEmail) {
+                return res
+                    .status(403)
+                    .json({ massage: 'Email already existing!' });
+            }
+            const checkUsername = await User.findOne({ username });
+            if (checkUsername) {
+                return res
+                    .status(403)
+                    .json({ massage: 'Username already existing!' });
+            }
+            return res.status(200).json({ massage: 'successfully' });
+        } catch (e) {
+            res.status(401).json({ message: e });
         }
     }
 }

@@ -31,7 +31,7 @@ export const login = async (username, email, password) => {
 export const register = async (username, email, password) => {
     try {
         const res = await request.post(
-            "auth/login",
+            "auth/register",
             {
                 username,
                 email,
@@ -63,6 +63,21 @@ export const refresh = async () => {
         });
         return res.data;
     } catch (e) {
+        console.log(e);
+    }
+};
+
+export const checkAuth = async (email, username) => {
+    try {
+        const res = await request.post("auth/checkAuth", { email, username });
+        return res.data;
+    } catch (e) {
+        if (e.response.data.massage === "Email already existing!") {
+            return { massage: "Email Đã Tồn Tại" };
+        }
+        if (e.response.data.message === "Username already existing!") {
+            return { massage: "Username Đã Tồn Tại" };
+        }
         console.log(e);
     }
 };

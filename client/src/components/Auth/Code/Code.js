@@ -1,11 +1,12 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "~/components/Auth/Register/Register.module.scss";
 import Button from "~/components/Button";
 import { useContexts } from "~/hooks/useContext";
 import { sendCode, checkCode } from "~/service/sendCodeService";
-import { refresh, register } from "~/service/authService";
+import { register } from "~/service/authService";
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,7 @@ function Code() {
     const [timeSendCode, setTimeSendCode] = useState(0);
     const { textEmail, textUsername, textPassword, isNext, handleIsNext } =
         useContexts();
+    const navigate = useNavigate();
 
     // console.log({ textEmail, textPassword, textUsername });
     useEffect(() => {
@@ -31,7 +33,7 @@ function Code() {
     }, [code]);
 
     useEffect(() => {
-        if (warningSendCode === "" && code !== "") {
+        if (code !== "") {
             setDisabled(false);
         } else {
             setDisabled(true);
@@ -50,26 +52,36 @@ function Code() {
         }
     }, [timeSendCode]);
 
+    const fetchAPIRegister = async () => {
+        console.log({ textUsername, textEmail, textPassword });
+        const resultRegister = await register(
+            textUsername,
+            textEmail,
+            textPassword
+        );
+        if (resultRegister.accessToken) {
+            localStorage.setItem("authorization", resultRegister.accessToken);
+            navigate("/");
+            window.location.reload();
+        }
+    };
+
     const handleOnsubmit = (e) => {
         e.preventDefault();
         setLoading(true);
         const fetchAPI = async () => {
-            const result = await checkCode(textEmail, code);
-            if (result.massage === "code expired!") {
-                const fetchAPIRegister = async () => {
-                    const resultRegister = await register(
-                        textUsername,
-                        textEmail,
-                        textPassword
-                    );
-                    console.log(resultRegister);
-                };
-                fetchAPIRegister();
+            const resultValue = await checkCode(textEmail, code);
+            // console.log(resultValue);
+            if (resultValue.message === "Successful") {
+                // Sử dụng "message" thay vì "massage"
+                await fetchAPIRegister();
+            } else {
+                setWarningSendCode(resultValue.message); // Sử dụng "message" thay vì "massage"
             }
-            setWarningSendCode(result.massage);
         };
         fetchAPI();
     };
+
     const handleOnSendCode = () => {
         if (timeSendCode === 0) {
             setTimeSendCode(60);
