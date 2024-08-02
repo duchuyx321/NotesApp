@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import classNames from "classnames/bind";
 import { useEffect, useState, useRef } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 import styles from "~/components/Auth/Login/Login.module.scss";
 import Button from "~/components/Button";
@@ -24,6 +26,7 @@ function Login() {
     const [disabled, setDisabled] = useState(true);
     const [loading, setLoading] = useState(true);
     const { isHidden, handleHiddenLogin } = useContexts();
+    const navigate = useNavigate();
 
     const warning1 = useRef("");
     const warning2 = useRef("");
@@ -73,9 +76,15 @@ function Login() {
                 } else {
                     setRenderResult(result);
                     localStorage.setItem("authorization", result.accessToken);
+                    const decoded = jwtDecode(result.accessToken);
+                    if (decoded.admin) {
+                        navigate("/admin");
+                    } else {
+                        navigate("/");
+                    }
+                    window.location.reload();
                     setSubmit(false);
                     handleHiddenLogin(!isHidden);
-                    window.location.reload();
                 }
                 setDisabled(true);
                 setLoading(true);

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { PublicRouters } from "./routers";
+import { PublicRouters, PrivateRouters } from "./routers";
 import DefaultLayout from "~/layouts/DefaultLayout";
 import { ContextProvider } from "./hooks/useContext";
 
@@ -20,6 +20,22 @@ function App() {
                                         <DefaultLayout>
                                             <Page />
                                         </DefaultLayout>
+                                    }
+                                />
+                            );
+                        })}
+
+                        {PrivateRouters.map((item, index) => {
+                            const Page = item.component;
+                            let Layout = item.layout;
+                            return (
+                                <Route
+                                    key={index}
+                                    path={item.path}
+                                    element={
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
                                     }
                                 />
                             );

@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import styles from "~/components/Auth/Register/Register.module.scss";
 import Button from "~/components/Button";
@@ -14,7 +15,7 @@ function Code() {
     const [code, setCode] = useState("");
     const [warningSendCode, setWarningSendCode] = useState("");
     const [disabled, setDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [contentBtn, setContentBtn] = useState("Gửi Mã");
     const [timeSendCode, setTimeSendCode] = useState(0);
     const { textEmail, textUsername, textPassword, isNext, handleIsNext } =
@@ -61,6 +62,7 @@ function Code() {
         );
         if (resultRegister.accessToken) {
             localStorage.setItem("authorization", resultRegister.accessToken);
+
             navigate("/");
             window.location.reload();
         }
@@ -68,7 +70,7 @@ function Code() {
 
     const handleOnsubmit = (e) => {
         e.preventDefault();
-        setLoading(true);
+        setLoading(false);
         const fetchAPI = async () => {
             const resultValue = await checkCode(textEmail, code);
             // console.log(resultValue);
@@ -146,7 +148,7 @@ function Code() {
                     disabled={disabled}
                     onClick={(e) => handleOnsubmit(e)}
                     loading
-                    // leftIcon={}
+                    leftIcon={<AiOutlineLoading3Quarters />}
                     hidden={loading}
                 >
                     Send

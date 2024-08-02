@@ -43,7 +43,6 @@ function Register() {
             if (resultValue.massage === "successfully") {
                 await handleIsNext(!isNext);
             } else {
-                console.log(resultValue.massage === "Email Đã Tồn Tại");
                 if (resultValue.massage === "Username Đã Tồn Tại") {
                     refreshWarning();
                     return setWarningUsername(resultValue.massage);
@@ -56,7 +55,6 @@ function Register() {
                 // console.log(resultValue.massage); // Kiểm tra giá trị của resultValue.message
             }
         };
-        console.log({ warningUsername, warningEmail });
         await fetchAPI();
     };
     const loadValue = () => {
