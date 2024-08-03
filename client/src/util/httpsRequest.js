@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { refresh } from "~/service/authService";
 
 const httpsRequest = axios.create({
-    baseURL: "http://localhost:5000/",
+    baseURL: "http://localhost:5050/",
     withCredentials: true,
 });
 const token = localStorage.getItem("authorization");

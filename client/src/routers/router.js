@@ -1,14 +1,14 @@
-import { jwtDecode } from "jwt-decode";
-
 import Home from "~/pages/Home";
 import Upload from "~/pages/Upload";
 import Restore from "~/pages/Restore";
 import Note from "~/pages/Note";
 import LoginSuccess from "~/pages/LoginSuccess";
-import AdminPage from "~/pages/AdminPage";
-import Admin from "~/layouts/Admin";
 
-const decoded = jwtDecode(localStorage.getItem("authorization"));
+import AdminHome from "~/pages/Admin/AdminHome";
+import AdminFeedback from "~/pages/Admin/Feedback";
+import AdminManage from "~/pages/Admin/Manage";
+import AdminSetting from "~/pages/Admin/Setting";
+import AdminListUser from "~/pages/Admin/ListUser";
 
 const PublicRouters = [
     // default layout
@@ -23,28 +23,23 @@ const PrivateRouters = [
     //admin
     {
         path: "/admin",
-        component: AdminPage,
-        layout: Admin,
+        component: AdminHome,
     },
     {
         path: "/admin/feedback",
-        component: AdminPage,
-        layout: Admin,
+        component: AdminFeedback,
     },
     {
         path: "/admin/manageNotes",
-        component: AdminPage,
-        layout: Admin,
+        component: AdminManage,
     },
     {
         path: "/admin/settings",
-        component: AdminPage,
-        layout: Admin,
+        component: AdminSetting,
     },
     {
         path: "/admin/listUser",
-        component: AdminPage,
-        layout: Admin,
+        component: AdminListUser,
     },
 ];
 

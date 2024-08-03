@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { PublicRouters, PrivateRouters } from "./routers";
 import DefaultLayout from "~/layouts/DefaultLayout";
+import Admin from "./layouts/Admin";
 import { ContextProvider } from "./hooks/useContext";
 
 function App() {
@@ -27,15 +28,14 @@ function App() {
 
                         {PrivateRouters.map((item, index) => {
                             const Page = item.component;
-                            let Layout = item.layout;
                             return (
                                 <Route
                                     key={index}
                                     path={item.path}
                                     element={
-                                        <Layout>
+                                        <Admin>
                                             <Page />
-                                        </Layout>
+                                        </Admin>
                                     }
                                 />
                             );

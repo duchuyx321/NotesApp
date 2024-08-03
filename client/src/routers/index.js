@@ -1,1 +1,1 @@
-export * from "~/routers/router";
+export * from "./router";

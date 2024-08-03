@@ -1,21 +1,23 @@
 .wrapper {
     width: 100%;
+    height: 100%;
 }
 .container {
     width: 100%;
-
+    height: 100%;
     padding: 1.6rem;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
     gap: 1.6rem;
+    background-color: rgba(69, 89, 164, 0.2);
+    border-radius: 4px;
 }
 .wrapperNav {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 7rem;
     gap: 1.6rem;
     color: #333;
 }
@@ -25,6 +27,8 @@
 .Nav-content {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
     font-size: 1.8rem;
 }
 .active {

@@ -1,0 +1,19 @@
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    background-color: rgba(27, 30, 31, 0.7);
+    padding: 1.6rem 1.8rem;
+}
+.wrapper-title {
+    display: flex;
+    font-size: 1.6rem;
+    gap: 1.6rem;
+    align-items: center;
+    color: var(--white-color);
+}
+.totalUser {
+    font-size: 2.8rem;
+}
