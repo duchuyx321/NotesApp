@@ -6,6 +6,10 @@
     font-size: 1.6rem;
     background-color: rgba(27, 30, 31, 0.7);
     padding: 1.6rem 1.8rem;
+    border-radius: 4px;
+    gap: 1.6rem;
+    // line-height: 1.6rem;
+    color: var(--white-color);
 }
 .wrapper-title {
     display: flex;
@@ -16,4 +20,50 @@
 }
 .totalUser {
     font-size: 2.8rem;
+}
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+}
+.table {
+    width: 100%;
+    border-collapse: separate; /* Sử dụng separate để áp dụng border-radius */
+    border-spacing: 0; /* Đặt khoảng cách giữa các ô thành 0 */
+}
+.table > thead {
+    background-color: rgb(128 128 128);
+    color: var(--white-color);
+}
+
+table {
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+td,
+th {
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    padding: 1rem;
+}
+
+.table > thead :nth-child(1) {
+    width: 5%;
+}
+.table > thead :nth-child(2) {
+    width: 20%;
+}
+.table > thead :nth-child(3) {
+    width: 25%;
+}
+.table > thead :nth-child(4) {
+    width: 15%;
+}
+.table > thead :nth-child(5) {
+    width: 25%;
+}
+.table > thead :nth-child(6) {
+    width: 10%;
 }

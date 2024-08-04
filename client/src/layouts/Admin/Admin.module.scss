@@ -3,13 +3,13 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
 }
 .container {
     width: 100%;
     flex: 1;
     display: flex;
-    gap: 1.6rem;
+    gap: 1px;
 }
 .sidebar {
     min-height: 100%;
@@ -17,5 +17,5 @@
 }
 .content {
     min-height: 100%;
-    flex: 0 0 calc(80% - 1.6rem);
+    flex: 0 0 calc(80% - 1px);
 }
