@@ -12,6 +12,7 @@ require('./util/passport');
 const routers = require('./routers');
 const db = require('./config/db/mongodb');
 const { clearCronJobs } = require('./util/CronJobs');
+const Redis = require('./app/module/Redis');
 
 const app = express();
 
@@ -41,6 +42,9 @@ app.use(express.json());
 
 // connect database
 db();
+
+// Redis
+Redis();
 
 // clear and update
 clearCronJobs();
