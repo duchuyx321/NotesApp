@@ -7,6 +7,7 @@ const AdminController = require('../app/controller/AdminController');
 // [GET -/admin]
 // middleware check admin
 router.get('/ListUsers', CheckAdmin, AdminController.ListUsers);
+router.get('/export/excel', CheckAdmin, AdminController.ExportExcel);
 
 // [POST -/admin]
 

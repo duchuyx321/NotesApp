@@ -12,7 +12,7 @@ require('./util/passport');
 const routers = require('./routers');
 const db = require('./config/db/mongodb');
 const { clearCronJobs } = require('./util/CronJobs');
-const Redis = require('./app/module/Redis');
+const { Redis } = require('./app/module/Redis');
 
 const app = express();
 

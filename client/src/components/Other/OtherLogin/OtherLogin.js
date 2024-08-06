@@ -10,7 +10,7 @@ function OtherLogin({ isAuth = false }) {
     const handleLoginFB = () => {};
     const handleLoginGH = () => {};
     const handleLoginGG = () => {
-        window.location.href = "http://localhost:5000/api/auth/google";
+        window.location.href = "http://localhost:5050/api/auth/google";
     };
     return (
         <div className={cx("wrapper")}>

@@ -22,7 +22,12 @@ passport.use(
                         ],
                     });
                     if (!existingProfile) {
+                        const profileName = profile._json.name.trim();
+
+                        // Thay thế khoảng trắng giữa các từ bằng không gian trống
+                        const newUsername = profileName.replace(/\s+/g, '');
                         const newUser = new User({
+                            username: newUsername,
                             name: profile._json.name,
                             email: profile._json.email,
                             avatar: profile._json.picture,
