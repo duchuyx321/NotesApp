@@ -2,16 +2,18 @@ import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
-import { CiExport } from "react-icons/ci";
+import { CiExport, CiImport } from "react-icons/ci";
 
 import styles from "./ListUser.module.scss";
 import { getUserData, ExportExcel } from "~/service/adminService";
 import Button from "~/components/Button";
+import ModalAdmin from "~/layouts/Admin/ModalAdmin";
 
 const cx = classNames.bind(styles);
 
 function ListUser() {
     const [resultRender, setResultRender] = useState([]);
+    const [isModalAdmin, setIsModalAdmin] = useState(false);
     useEffect(() => {
         const token = localStorage.getItem("authorization");
         if (token) {
@@ -31,7 +33,6 @@ function ListUser() {
     };
     const handleExport = async () => {
         const result = await ExportExcel();
-        console.log(result);
 
         const url = window.URL.createObjectURL(result);
         const a = document.createElement("a");
@@ -41,6 +42,12 @@ function ListUser() {
         a.click();
         a.remove();
         window.URL.revokeObjectURL(url); // Dọn dẹp URL blob
+    };
+    const handleImport = async () => {
+        setIsModalAdmin(true);
+    };
+    const handleClose = () => {
+        setIsModalAdmin(false);
     };
 
     return (
@@ -80,21 +87,28 @@ function ListUser() {
                 </table>
             </div>
             <div className={cx("footer")}>
-                <div className={cx("attention")}>
-                    <h3 className={cx("attention-title")}>Chú ý</h3>
-                    <p className={cx("attention-content")}>
-                        Xuất file sẽ xuất ở dạng Excel (.XLSX)
-                    </p>
+                <div className={cx("footer-inner")}>
+                    <Button
+                        border
+                        leftIcon={<CiImport />}
+                        onClick={handleImport}
+                    >
+                        Import
+                    </Button>
                 </div>
-                <Button
-                    className={cx("export")}
-                    border
-                    leftIcon={<CiExport />}
-                    onClick={handleExport}
-                >
-                    Export
-                </Button>
+                <div className={cx("footer-inner")}>
+                    <Button
+                        border
+                        leftIcon={<CiExport />}
+                        onClick={handleExport}
+                    >
+                        Export
+                    </Button>
+                </div>
             </div>
+            {isModalAdmin && (
+                <ModalAdmin handleClose={handleClose} importModal />
+            )}
         </div>
     );
 }

@@ -73,6 +73,52 @@ class AdminController {
             res.status(400).json({ massage: e });
         }
     }
-    // [POST -/]
+    // [GET - /admin/export/excel-from]
+    async ExportExcelFrom(req, res, next) {
+        try {
+            if (!req.admin) {
+                return res
+                    .status(403)
+                    .json({ massage: 'you are not allowed to' });
+            }
+            const heading = [
+                ['id', 'username', 'email', 'createdAt', 'provider'],
+            ];
+            const workbook = XLSX.utils.book_new();
+            const worksheet = XLSX.utils.json_to_sheet();
+            XLSX.utils.sheet_add_aoa(worksheet, heading);
+            XLSX.utils.book_append_sheet(
+                workbook,
+                worksheet,
+                'DataUserNoteApp',
+            );
+
+            // lưu file
+            const buff = XLSX.write(workbook, {
+                bookType: 'xlsx',
+                type: 'buffer',
+            });
+            res.setHeader(
+                'Content-Disposition',
+                'attachment; filename=user.xlsx',
+            );
+            res.setHeader(
+                'Content-Type',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            );
+
+            return res.status(200).send(buff);
+        } catch (e) {
+            res.status(404).json({ massage: e });
+        }
+    }
+
+    // [POST -/admin/import/excel]
+    async ImportExcel(req, res, next) {
+        try {
+        } catch (err) {
+            res.status(400).json({ message: err });
+        }
+    }
 }
 module.exports = new AdminController();
