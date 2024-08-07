@@ -85,8 +85,7 @@ class AdminController {
                 ['id', 'username', 'email', 'createdAt', 'provider'],
             ];
             const workbook = XLSX.utils.book_new();
-            const worksheet = XLSX.utils.json_to_sheet();
-            XLSX.utils.sheet_add_aoa(worksheet, heading);
+            const worksheet = XLSX.utils.aoa_to_sheet(heading);
             XLSX.utils.book_append_sheet(
                 workbook,
                 worksheet,

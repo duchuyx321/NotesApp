@@ -10,7 +10,17 @@ export const getUserData = async () => {
 };
 export const ExportExcel = async () => {
     try {
-        const res = await Request.get("/admin/export/excel", {
+        const res = await Request.get("admin/export/excel", {
+            responseType: "blob",
+        });
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+export const ExportExcelFrom = async () => {
+    try {
+        const res = await Request.get("admin/export/excel-from", {
             responseType: "blob",
         });
         return res.data;
