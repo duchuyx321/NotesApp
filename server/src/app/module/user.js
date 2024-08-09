@@ -26,6 +26,9 @@ const User = new Schema(
     { timestamps: true },
 );
 
+// Tạo chỉ mục cho các trường 'username' và 'email'
+User.index({ username: 1, email: 1 });
+
 mongoose.plugin(mongooseDelete, { delete: true, deleteAt: true });
 
 module.exports = mongoose.model('User', User);

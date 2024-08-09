@@ -1,8 +1,10 @@
 import classNames from "classnames/bind";
 import { IoClose } from "react-icons/io5";
+import { useState } from "react";
 
 import styles from "./ModalAdmin.module.scss";
 import { ExportExcelFrom } from "~/service/adminService";
+import Import from "~/layouts/components/Import";
 
 const cx = classNames.bind(styles);
 const defaultFn = () => {};
@@ -20,6 +22,7 @@ function ModalAdmin({
     importModal = false,
     exportModal = false,
 }) {
+    const [isNext, setIsNext] = useState(false);
     const handleImport = async () => {
         const result = await ExportExcelFrom();
         const url = window.URL.createObjectURL(result);
@@ -30,43 +33,56 @@ function ModalAdmin({
         a.click();
         a.remove();
         window.URL.revokeObjectURL(url); // Dọn dẹp URL blob
+
+        setIsNext(true);
     };
     const handleExport = () => {};
+    const handleReturn = () => {
+        setIsNext(false);
+    };
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("modal")}>
-                <div className={cx("modal-content")}>
-                    <div className={cx("modal-header")}>
-                        <h5 className={cx("modal-title")}>Chú ý</h5>
-                        <button
-                            type="button"
-                            onClick={handleClose}
-                            className={cx("btn-close")}
-                        >
-                            <IoClose />
-                        </button>
-                    </div>
-                    <div className={cx("modal-body")}>
-                        <p>{importModal && MENU_MODAL.importModal.content}</p>
-                    </div>
-                    <div className={cx("modal-footer")}>
-                        <button
-                            type="button"
-                            className={cx("btn-primary", "close")}
-                            onClick={handleClose}
-                        >
-                            Close
-                        </button>
-                        <button
-                            type="button"
-                            onClick={importModal ? handleImport : handleExport}
-                            className={cx("btn-primary", "save")}
-                        >
-                            {importModal && MENU_MODAL.importModal.titleBtn}
-                        </button>
+            {!isNext ? (
+                <div className={cx("modal")}>
+                    <div className={cx("modal-content")}>
+                        <div className={cx("modal-header")}>
+                            <h5 className={cx("modal-title")}>Chú ý</h5>
+                            <button
+                                type="button"
+                                onClick={handleClose}
+                                className={cx("btn-close")}
+                            >
+                                <IoClose />
+                            </button>
+                        </div>
+                        <div className={cx("modal-body")}>
+                            <p>
+                                {importModal && MENU_MODAL.importModal.content}
+                            </p>
+                        </div>
+                        <div className={cx("modal-footer")}>
+                            <button
+                                type="button"
+                                className={cx("btn-primary", "close")}
+                                onClick={handleClose}
+                            >
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                onClick={
+                                    importModal ? handleImport : handleExport
+                                }
+                                className={cx("btn-primary", "save")}
+                            >
+                                {importModal && MENU_MODAL.importModal.titleBtn}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <Import handleClose={handleClose} />
+            )}
         </div>
     );
 }

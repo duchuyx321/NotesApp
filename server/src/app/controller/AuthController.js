@@ -54,7 +54,7 @@ class AuthController {
                 sameSite: 'strict',
             });
             const { password, ...other } = user._doc;
-            // res.redirect('/');
+
             res.status(200).json({ ...other, accessToken });
         } catch (e) {
             res.status(500).json({ message: e.message, next });

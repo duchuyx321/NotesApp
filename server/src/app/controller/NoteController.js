@@ -12,8 +12,7 @@ class NoteController {
             const accessToken = req.cookies.accessToken;
             const token = jwt.verify(accessToken, process.env.ACCESS_TOKEN);
 
-            const { id, admin } = token;
-            // res.json(id);
+            const { id } = token;
             res.render('notes/create', { id });
         } catch (e) {
             res.status(500).json({ message: e.message, next });
