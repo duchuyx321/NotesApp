@@ -1,11 +1,25 @@
 import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./HeaderAdmin.module.scss";
 import Button from "~/components/Button";
+import { logout } from "~/service/authService";
 
 const cx = classNames.bind(styles);
 function HeaderAdmin() {
+    const navigation = useNavigate();
+    const handleEvent = async () => {
+        const fetchAPI = async () => {
+            const result = await logout();
+            if (result.status === 200) {
+                localStorage.removeItem("authorization");
+                navigation("/");
+                window.location.reload();
+            }
+        };
+        await fetchAPI();
+    };
+
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -17,7 +31,7 @@ function HeaderAdmin() {
                     />
                 </Link>
             </div>
-            <Button submit className={cx("wrapper-btn")}>
+            <Button submit className={cx("wrapper-btn")} onClick={handleEvent}>
                 Đăng Xuất
             </Button>
         </div>
